@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="resource">
+      <UniqueIdentifier>{ca9c9e15-d942-43a1-aa7a-5f0b74ca1afd}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;png;manifest</Extensions>
+    </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{ccb2323b-1cfa-41ea-bcf4-ba5f07309396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{e93a77e1-af1e-4400-87d3-504b62ebdbb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\src">
+      <UniqueIdentifier>{b6b5bc98-1721-4081-aa6c-925b5971a116}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Network\download\AsyncDownloadFile.cpp" />
+    <ClCompile Include="Engine\Network\packet\CPacket.cpp" />
+    <ClCompile Include="Engine\Network\packet\MessageBuffer.cpp" />
+    <ClCompile Include="Engine\Network\packet\PacketFactory.cpp" />
+    <ClCompile Include="Engine\Network\socket\DefaultSocket.cpp" />
+    <ClCompile Include="Engine\Network\socket\DefaultWP8Socket.cpp" />
+    <ClCompile Include="Engine\Network\ClientBitZero.cpp" />
+    <ClCompile Include="Engine\BaseLayer.cpp" />
+    <ClCompile Include="Engine\BaseScene.cpp" />
+    <ClCompile Include="Engine\CAvatar.cpp" />
+    <ClCompile Include="Engine\CCLocalizedString.cpp" />
+    <ClCompile Include="Engine\CDialog.cpp" />
+    <ClCompile Include="Engine\CShake.cpp" />
+    <ClCompile Include="Engine\CStringUtils.cpp" />
+    <ClCompile Include="Engine\Dialog.cpp" />
+    <ClCompile Include="Engine\Handler.cpp" />
+    <ClCompile Include="Engine\SceneMgr.cpp" />
+    <ClCompile Include="Engine\UIAvatar.cpp" />
+    <ClCompile Include="Engine\Utility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Network\download\AsyncDownloadFile.h" />
+    <ClInclude Include="Engine\Network\packet\BZPacket.h" />
+    <ClInclude Include="Engine\Network\packet\CPacket.h" />
+    <ClInclude Include="Engine\Network\packet\MessageBuffer.h" />
+    <ClInclude Include="Engine\Network\packet\PacketFactory.h" />
+    <ClInclude Include="Engine\Network\socket\CommonSocket.h" />
+    <ClInclude Include="Engine\Network\socket\DefaultSocket.h" />
+    <ClInclude Include="Engine\Network\ClientBitZero.h" />
+    <ClInclude Include="Engine\BaseLayer.h" />
+    <ClInclude Include="Engine\BaseScene.h" />
+    <ClInclude Include="Engine\CAvatar.h" />
+    <ClInclude Include="Engine\CCLocalizedString.h" />
+    <ClInclude Include="Engine\CDialog.h" />
+    <ClInclude Include="Engine\CShake.h" />
+    <ClInclude Include="Engine\CStringUtils.h" />
+    <ClInclude Include="Engine\Dialog.h" />
+    <ClInclude Include="Engine\Handler.h" />
+    <ClInclude Include="Engine\SceneMgr.h" />
+    <ClInclude Include="Engine\UIAvatar.h" />
+    <ClInclude Include="Engine\Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Debug.win32\src\myApp.js">
+      <Filter>resource\src</Filter>
+    </None>
+    <None Include="..\..\..\Debug.win32\src\resource.js">
+      <Filter>resource\src</Filter>
+    </None>
+    <None Include="Build\src\Engine\BaseLayer.js" />
+    <None Include="Build\jsb_cocos3dx_auto_api.js" />
+    <None Include="Build\cocos2d-jsb.js" />
+    <None Include="Build\jsb.js" />
+    <None Include="Build\jsb_chipmunk.js" />
+    <None Include="Build\jsb_chipmunk_constants.js" />
+    <None Include="Build\jsb_cocos2d.js" />
+    <None Include="Build\jsb_cocos2d_constants.js" />
+    <None Include="Build\jsb_cocos2d_extension.js" />
+    <None Include="Build\jsb_cocos2d_studio.js" />
+    <None Include="Build\jsb_cocosbuilder.js" />
+    <None Include="Build\jsb_debugger.js" />
+    <None Include="Build\jsb_deprecated.js" />
+    <None Include="Build\jsb_opengl.js" />
+    <None Include="Build\jsb_opengl_constants.js" />
+    <None Include="Build\jsb_sys.js" />
+    <None Include="Build\main.debug.js" />
+    <None Include="Build\src\myApp.js" />
+    <None Include="Build\src\resource.js" />
+    <None Include="Build\jsb_cocos3d.js" />
+    <None Include="Build\HelloJS3DRes\src\resource.js" />
+    <None Include="Build\HelloJS3DRes\cocos2d-jsb.js" />
+    <None Include="Build\HelloJS3DRes\src\Engine\BaseLayer.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\GameScene.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\GameLogic\Card.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\GameLogic\GameLogic.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\GameLogic\GroupCard.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\GameLogic\Player.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\GameLogic\TalaGameRule.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\IntroScenes\IntroScene.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\IntroScenes\LoginScene.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\IntroScenes\LoadingScene.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\Effect\Layer3DEffect.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\Effect\LayerEffect2D.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\PlayerView.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\LobbyScenes\LobbyScene.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\PlatformInterface\NativeBridge.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Network\GameClient.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Network\GameClientListener.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Network\packet\CmdDefine.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Network\packet\InPacket.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Network\packet\InPacketFactory.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Network\packet\OutPacket.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Network\packet\UserInPacket.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Network\packet\UserOutPacket.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\GameCard.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Module\Social\LoginHelper.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Module\Social\SocialManager.js" />
+    <None Include="Build\HelloJS3DRes\src\Utility\Toast.js" />
+    <None Include="Build\HelloJS3DRes\src\Utility\Dialog.js" />
+    <None Include="Build\HelloJS3DRes\src\Utility\LocalizedString.js" />
+    <None Include="Build\HelloJS3DRes\src\Utility\NativeDialog.js" />
+    <None Include="Build\HelloJS3DRes\src\Utility\StringUtility.js" />
+    <None Include="Build\HelloJS3DRes\src\Utility\Timer.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\GameData\Constant.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\GameData\GameData.js" />
+    <None Include="Build\HelloJS3DRes\src\Engine\SceneMgr.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Module\Sound\GameSound.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\GameListener.js" />
+    <None Include="E:\Tala-JS\Client\src\Game\Network\UserClientListener.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Network\UserClientListener.js" />
+    <None Include="Build\HelloJS3DRes\main.debug.js" />
+    <None Include="Build\HelloJS3DRes\jsb.js" />
+    <None Include="Build\HelloJS3DRes\jsb_chipmunk.js" />
+    <None Include="Build\HelloJS3DRes\jsb_chipmunk_constants.js" />
+    <None Include="Build\HelloJS3DRes\jsb_cocos2d.js" />
+    <None Include="Build\HelloJS3DRes\jsb_cocos2d_constants.js" />
+    <None Include="Build\HelloJS3DRes\jsb_cocos2d_extension.js" />
+    <None Include="Build\HelloJS3DRes\jsb_cocos2d_studio.js" />
+    <None Include="Build\HelloJS3DRes\jsb_cocos3d.js" />
+    <None Include="Build\HelloJS3DRes\jsb_cocos3dx_auto_api.js" />
+    <None Include="Build\HelloJS3DRes\jsb_cocosbuilder.js" />
+    <None Include="Build\HelloJS3DRes\jsb_debugger.js" />
+    <None Include="Build\HelloJS3DRes\jsb_deprecated.js" />
+    <None Include="Build\HelloJS3DRes\jsb_opengl.js" />
+    <None Include="Build\HelloJS3DRes\jsb_opengl_constants.js" />
+    <None Include="Build\HelloJS3DRes\jsb_sys.js" />
+    <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\PlayerView3D.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

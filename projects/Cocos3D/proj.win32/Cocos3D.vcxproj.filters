@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GameScene\GameLogic\GameObject.cpp" />
+    <ClCompile Include="Classes\GameScene\GameLogic\Ma.cpp" />
+    <ClCompile Include="Classes\GameScene\GameLogic\Tinh.cpp" />
+    <ClCompile Include="Classes\GameScene\GameLogic\Tot.cpp" />
+    <ClCompile Include="Classes\GameScene\GameLogic\Tuong.cpp" />
+    <ClCompile Include="Classes\GameScene\GameLogic\Xe.cpp" />
+    <ClCompile Include="Classes\GameScene\GameLogic\Hau.cpp" />
+    <ClCompile Include="Classes\GameScene\GameLogic\Player.cpp" />
+    <ClCompile Include="Classes\GameScene\GameLogic\GameLogic.cpp" />
+    <ClCompile Include="Classes\GameScene\Layer3D.cpp" />
+    <ClCompile Include="Custom\TestClass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GameScene\GameLogic\GameObject.h" />
+    <ClInclude Include="Classes\GameScene\GameLogic\Ma.h" />
+    <ClInclude Include="Classes\GameScene\GameLogic\Tinh.h" />
+    <ClInclude Include="Classes\GameScene\GameLogic\Tot.h" />
+    <ClInclude Include="Classes\GameScene\GameLogic\Tuong.h" />
+    <ClInclude Include="Classes\GameScene\GameLogic\Xe.h" />
+    <ClInclude Include="Classes\GameScene\GameLogic\Hau.h" />
+    <ClInclude Include="Classes\GameScene\GameLogic\Player.h" />
+    <ClInclude Include="Classes\GameScene\GameLogic\GameLogic.h" />
+    <ClInclude Include="Classes\Utility\StringUtils.h" />
+    <ClInclude Include="Classes\GameScene\Layer3D.h" />
+    <ClInclude Include="Custom\TestClass.h" />
+  </ItemGroup>
+</Project>
