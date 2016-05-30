@@ -1687,4 +1687,294 @@ void CC3ActionBezierTo::startWithTarget(CC3Node *pTarget)
 }
 
 
+// instant action
+
+CC3ActionInstant::CC3ActionInstant() {
+}
+
+CCObject * CC3ActionInstant::copyWithZone(CCZone *pZone) {
+	CCZone *pNewZone = NULL;
+	CC3ActionInstant *pRet = NULL;
+
+	if (pZone && pZone->m_pCopyObject) {
+		pRet = (CC3ActionInstant*) (pZone->m_pCopyObject);
+	} else {
+		pRet = new CC3ActionInstant();
+		pZone = pNewZone = new CCZone(pRet);
+	}
+
+	CCFiniteTimeAction::copyWithZone(pZone);
+	CC_SAFE_DELETE(pNewZone);
+	return pRet;
+}
+
+bool CC3ActionInstant::isDone() {
+	return true;
+}
+
+void CC3ActionInstant::step(float dt) {
+	CC_UNUSED_PARAM(dt);
+	update(1);
+}
+
+void CC3ActionInstant::update(float time) {
+	CC_UNUSED_PARAM(time);
+	// nothing
+}
+
+CC3ActionInterval * CC3ActionInstant::reverse() {
+	return (CC3ActionInterval*) (copy()->autorelease());
+}
+
+//show
+CC3ActionShow* CC3ActionShow::create() 
+{
+	CC3ActionShow* pRet = new CC3ActionShow();
+
+	if (pRet) {
+		pRet->autorelease();
+	}
+
+	return pRet;
+}
+
+void CC3ActionShow::update(float time) {
+	CC_UNUSED_PARAM(time);
+	m_pTargetCC3Node->setVisible(true);
+}
+
+CC3ActionInterval* CC3ActionShow::reverse() {
+	return (CC3ActionInterval*) (CC3ActionHide::create());
+}
+
+CCObject* CC3ActionShow::copyWithZone(CCZone *pZone) {
+
+	CCZone *pNewZone = NULL;
+	CC3ActionShow *pRet = NULL;
+	if (pZone && pZone->m_pCopyObject) {
+		pRet = (CC3ActionShow*) (pZone->m_pCopyObject);
+	} else {
+		pRet = new CC3ActionShow();
+		pZone = pNewZone = new CCZone(pRet);
+	}
+
+	CC3ActionInstant::copyWithZone(pZone);
+	CC_SAFE_DELETE(pNewZone);
+	return pRet;
+}
+
+//
+// Hide
+//
+CC3ActionHide * CC3ActionHide::create() 
+{
+	CC3ActionHide *pRet = new CC3ActionHide();
+
+	if (pRet) {
+		pRet->autorelease();
+	}
+
+	return pRet;
+}
+
+void CC3ActionHide::update(float time) {
+	CC_UNUSED_PARAM(time);
+	m_pTargetCC3Node->setVisible(false);
+}
+
+CC3ActionInterval *CC3ActionHide::reverse() {
+	return (CC3ActionInterval*) (CC3ActionShow::create());
+}
+
+CCObject* CC3ActionHide::copyWithZone(CCZone *pZone) {
+	CCZone *pNewZone = NULL;
+	CC3ActionHide *pRet = NULL;
+
+	if (pZone && pZone->m_pCopyObject) {
+		pRet = (CC3ActionHide*) (pZone->m_pCopyObject);
+	} else {
+		pRet = new CC3ActionHide();
+		pZone = pNewZone = new CCZone(pRet);
+	}
+
+	CC3ActionInstant::copyWithZone(pZone);
+	CC_SAFE_DELETE(pNewZone);
+	return pRet;
+}
+
+//
+// ToggleVisibility
+//
+CC3ActionToggleVisibility * CC3ActionToggleVisibility::create()
+{
+	CC3ActionToggleVisibility *pRet = new CC3ActionToggleVisibility();
+
+	if (pRet)
+	{
+		pRet->autorelease();
+	}
+
+	return pRet;
+}
+
+void CC3ActionToggleVisibility::update(float time) 
+{
+	CC_UNUSED_PARAM(time);
+	m_pTargetCC3Node->setVisible(!m_pTargetCC3Node->isVisible());
+}
+
+CCObject* CC3ActionToggleVisibility::copyWithZone(CCZone *pZone)
+{
+	CCZone *pNewZone = NULL;
+	CC3ActionToggleVisibility *pRet = NULL;
+
+	if (pZone && pZone->m_pCopyObject) {
+		pRet = (CC3ActionToggleVisibility*) (pZone->m_pCopyObject);
+	} else {
+		pRet = new CC3ActionToggleVisibility();
+		pZone = pNewZone = new CCZone(pRet);
+	}
+
+	CC3ActionInstant::copyWithZone(pZone);
+	CC_SAFE_DELETE(pNewZone);
+	return pRet;
+}
+
+//
+// Remove Self
+//
+CC3ActionRemoveSelf * CC3ActionRemoveSelf::create(bool isNeedCleanUp /*= true*/) 
+{
+	CC3ActionRemoveSelf *pRet = new CC3ActionRemoveSelf();
+
+	if (pRet && pRet->init(isNeedCleanUp)) {
+		pRet->autorelease();
+	}
+
+	return pRet;
+}
+
+bool CC3ActionRemoveSelf::init(bool isNeedCleanUp) {
+	m_bIsNeedCleanUp = isNeedCleanUp;
+	return true;
+}
+
+void CC3ActionRemoveSelf::update(float time) {
+	CC_UNUSED_PARAM(time);
+	m_pTargetCC3Node->remove();
+}
+
+CC3ActionInterval *CC3ActionRemoveSelf::reverse() {
+	return (CC3ActionInterval*) (CC3ActionRemoveSelf::create(m_bIsNeedCleanUp));
+}
+
+CCObject* CC3ActionRemoveSelf::copyWithZone(CCZone *pZone) {
+	CCZone *pNewZone = NULL;
+	CC3ActionRemoveSelf *pRet = NULL;
+
+	if (pZone && pZone->m_pCopyObject) {
+		pRet = (CC3ActionRemoveSelf*) (pZone->m_pCopyObject);
+	} else {
+		pRet = new CC3ActionRemoveSelf();
+		pZone = pNewZone = new CCZone(pRet);
+	}
+
+	CC3ActionInstant::copyWithZone(pZone);
+	pRet->init(m_bIsNeedCleanUp);
+	CC_SAFE_DELETE(pNewZone);
+	return pRet;
+}
+
+//
+// CallFunc
+//
+CC3ActionCallFunc * CC3ActionCallFunc::create(CCObject* pSelectorTarget, SEL_CallFunc selector) 
+{
+	CC3ActionCallFunc *pRet = new CC3ActionCallFunc();
+
+	if (pRet && pRet->initWithTarget(pSelectorTarget)) {
+		pRet->m_pCallFunc = selector;
+		pRet->autorelease();
+		return pRet;
+	}
+
+	CC_SAFE_DELETE(pRet);
+	return NULL;
+}
+
+CC3ActionCallFunc * CC3ActionCallFunc::create(int nHandler)
+{
+	CC3ActionCallFunc *pRet = new CC3ActionCallFunc();
+
+	if (pRet) {
+		pRet->m_nScriptHandler = nHandler;
+		pRet->autorelease();
+	}
+	else{
+		CC_SAFE_DELETE(pRet);
+	}
+	return pRet;
+}
+
+bool CC3ActionCallFunc::initWithTarget(CCObject* pSelectorTarget) {
+	if (pSelectorTarget) 
+	{
+		pSelectorTarget->retain();
+	}
+
+	if (m_pSelectorTarget) 
+	{
+		m_pSelectorTarget->release();
+	}
+
+	m_pSelectorTarget = pSelectorTarget;
+	return true;
+}
+
+CC3ActionCallFunc::~CC3ActionCallFunc(void)
+{
+	if (m_nScriptHandler)
+	{
+		cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine()->removeScriptHandler(m_nScriptHandler);
+	}
+	CC_SAFE_RELEASE(m_pSelectorTarget);
+}
+
+CCObject * CC3ActionCallFunc::copyWithZone(CCZone *pZone) {
+	CCZone* pNewZone = NULL;
+	CC3ActionCallFunc* pRet = NULL;
+
+	if (pZone && pZone->m_pCopyObject) {
+		//in case of being called at sub class
+		pRet = (CC3ActionCallFunc*) (pZone->m_pCopyObject);
+	} else {
+		pRet = new CC3ActionCallFunc();
+		pZone = pNewZone = new CCZone(pRet);
+	}
+
+	CC3ActionInstant::copyWithZone(pZone);
+	pRet->initWithTarget(m_pSelectorTarget);
+	pRet->m_pCallFunc = m_pCallFunc;
+	if (m_nScriptHandler > 0 ) {
+		pRet->m_nScriptHandler = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine()->reallocateScriptHandler(m_nScriptHandler);
+	}
+	CC_SAFE_DELETE(pNewZone);
+	return pRet;
+}
+
+void CC3ActionCallFunc::update(float time) {
+	CC_UNUSED_PARAM(time);
+	this->execute();
+}
+
+void CC3ActionCallFunc::execute() {
+	if (m_pCallFunc) {
+		(m_pSelectorTarget->*m_pCallFunc)();
+	}
+	if (m_nScriptHandler) {
+		//CCScriptEngineManager::sharedManager()->getScriptEngine()->executeCallFuncActionEvent(this);
+	}
+}
+
+
 NS_COCOS3D_END

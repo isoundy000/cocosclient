@@ -39,7 +39,7 @@ JSBool js_cocos3dx_CC3Matrix_extractQuaternion(JSContext *cx, uint32_t argc, jsv
 	if (argc == 0) {
 		CC3Quaternion ret = cobj->extractQuaternion();
 		jsval jsret;
-		#pragma warning NO CONVERSION FROM NATIVE FOR CC3Quaternion;
+		jsret = c3dquaternion_to_jsval(cx, ret);
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
@@ -329,7 +329,7 @@ JSBool js_cocos3dx_CC3Matrix_rotateByQuaternion(JSContext *cx, uint32_t argc, js
 	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 	if (argc == 1) {
 		cocos3d::CC3Quaternion arg0;
-		#pragma warning NO CONVERSION TO NATIVE FOR const CC3Quaternion;
+		ok &= jsval_to_c3dquaternion(cx, argv[0], &arg0);
 		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->rotateByQuaternion(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
@@ -845,7 +845,7 @@ JSBool js_cocos3dx_CC3Matrix_populateFromQuaternion(JSContext *cx, uint32_t argc
 	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 	if (argc == 1) {
 		cocos3d::CC3Quaternion arg0;
-		#pragma warning NO CONVERSION TO NATIVE FOR const CC3Quaternion;
+		ok &= jsval_to_c3dquaternion(cx, argv[0], &arg0);
 		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->populateFromQuaternion(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
@@ -1458,7 +1458,7 @@ JSBool js_cocos3dx_CC3AffineMatrix_extractQuaternion(JSContext *cx, uint32_t arg
 	if (argc == 0) {
 		CC3Quaternion ret = cobj->extractQuaternion();
 		jsval jsret;
-		#pragma warning NO CONVERSION FROM NATIVE FOR CC3Quaternion;
+		jsret = c3dquaternion_to_jsval(cx, ret);
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
@@ -2126,6 +2126,734 @@ void js_register_cocos3dx_CC3AffineMatrix(JSContext *cx, JSObject *global) {
 		p->type = typeId;
 		p->jsclass = jsb_CC3AffineMatrix_class;
 		p->proto = jsb_CC3AffineMatrix_prototype;
+		p->parentProto = jsb_CC3Matrix_prototype;
+		HASH_ADD_INT(_js_global_type_ht, type, p);
+	}
+}
+
+
+JSClass  *jsb_CC3ProjectionMatrix_class;
+JSObject *jsb_CC3ProjectionMatrix_prototype;
+
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractQuaternion(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		CC3Quaternion ret = cobj->extractQuaternion();
+		jsval jsret;
+		jsret = c3dquaternion_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyIntoCC3Matrix4x4(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x4* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x4*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->multiplyIntoCC3Matrix4x4(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_populateFromCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix3x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix3x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->populateFromCC3Matrix3x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyIntoCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix3x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix3x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->leftMultiplyIntoCC3Matrix3x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractRotation(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cocos3d::CC3Vector ret = cobj->extractRotation();
+		jsval jsret;
+		jsret = c3dvector3_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyIntoCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->multiplyIntoCC3Matrix4x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_transformHomogeneousVector(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos3d::CC3Vector4 arg0;
+		ok &= jsval_to_c3dvector4(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos3d::CC3Vector4 ret = cobj->transformHomogeneousVector(arg0);
+		jsval jsret;
+		jsret = c3dvector4_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractRightDirection(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cocos3d::CC3Vector ret = cobj->extractRightDirection();
+		jsval jsret;
+		jsret = c3dvector3_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_orthonormalizeRotationStartingWith(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		unsigned int arg0;
+		ok &= jsval_to_uint32(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->orthonormalizeRotationStartingWith(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyByCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix3x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix3x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->leftMultiplyByCC3Matrix3x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_populateCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix3x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix3x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->populateCC3Matrix3x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_transformDirection(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos3d::CC3Vector arg0;
+		ok &= jsval_to_c3dvector3(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos3d::CC3Vector ret = cobj->transformDirection(arg0);
+		jsval jsret;
+		jsret = c3dvector3_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyIntoCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix3x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix3x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->multiplyIntoCC3Matrix3x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractTranslation(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cocos3d::CC3Vector ret = cobj->extractTranslation();
+		jsval jsret;
+		jsret = c3dvector3_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_populateCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->populateCC3Matrix4x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_populateCC3Matrix4x4(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x4* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x4*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->populateCC3Matrix4x4(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyIntoCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->leftMultiplyIntoCC3Matrix4x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_invertRigid(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cobj->invertRigid();
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyIntoCC3Matrix4x4(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x4* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x4*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->leftMultiplyIntoCC3Matrix4x4(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyByCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->multiplyByCC3Matrix4x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_populateFromCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->populateFromCC3Matrix4x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyByCC3Matrix4x4(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x4* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x4*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->multiplyByCC3Matrix4x4(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_transpose(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cobj->transpose();
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractUpDirection(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cocos3d::CC3Vector ret = cobj->extractUpDirection();
+		jsval jsret;
+		jsret = c3dvector3_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractForwardDirection(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cocos3d::CC3Vector ret = cobj->extractForwardDirection();
+		jsval jsret;
+		jsret = c3dvector3_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyByCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix3x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix3x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->multiplyByCC3Matrix3x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyByCC3Matrix4x4(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x4* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x4*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->leftMultiplyByCC3Matrix4x4(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyByCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		CC3Matrix4x3* arg0;
+		#pragma warning NO CONVERSION TO NATIVE FOR CC3Matrix4x3*;
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->leftMultiplyByCC3Matrix4x3(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_invertAdjoint(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		bool ret = cobj->invertAdjoint();
+		jsval jsret;
+		jsret = BOOLEAN_TO_JSVAL(ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_transformLocation(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ProjectionMatrix* cobj = (cocos3d::CC3ProjectionMatrix *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos3d::CC3Vector arg0;
+		ok &= jsval_to_c3dvector3(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos3d::CC3Vector ret = cobj->transformLocation(arg0);
+		jsval jsret;
+		jsret = c3dvector3_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ProjectionMatrix_matrix(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ProjectionMatrix* ret = cocos3d::CC3ProjectionMatrix::matrix();
+		jsval jsret;
+		do {
+		if (ret) {
+			js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ProjectionMatrix>(cx, ret);
+			jsret = OBJECT_TO_JSVAL(proxy->obj);
+		} else {
+			jsret = JSVAL_NULL;
+		}
+	} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+	JS_ReportError(cx, "wrong number of arguments");
+	return JS_FALSE;
+}
+
+JSBool js_cocos3dx_CC3ProjectionMatrix_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ProjectionMatrix* cobj = new cocos3d::CC3ProjectionMatrix();
+		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
+		if (_ccobj) {
+			_ccobj->autorelease();
+		}
+		TypeTest<cocos3d::CC3ProjectionMatrix> t;
+		js_type_class_t *typeClass;
+		uint32_t typeId = t.s_id();
+		HASH_FIND_INT(_js_global_type_ht, &typeId, typeClass);
+		assert(typeClass);
+		JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+		// link the native object with the javascript object
+		js_proxy_t* p = jsb_new_proxy(cobj, obj);
+		JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ProjectionMatrix");
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+
+
+
+extern JSObject *jsb_CC3Matrix_prototype;
+
+void js_cocos3dx_CC3ProjectionMatrix_finalize(JSFreeOp *fop, JSObject *obj) {
+    CCLOGINFO("jsbindings: finalizing JS object %p (CC3ProjectionMatrix)", obj);
+}
+
+static JSBool js_cocos3dx_CC3ProjectionMatrix_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    cocos3d::CC3ProjectionMatrix *nobj = new cocos3d::CC3ProjectionMatrix();
+    js_proxy_t* p = jsb_new_proxy(nobj, obj);
+    nobj->autorelease();
+    JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ProjectionMatrix");
+    JS_SET_RVAL(cx, vp, JSVAL_VOID);
+    return JS_TRUE;
+}
+
+void js_register_cocos3dx_CC3ProjectionMatrix(JSContext *cx, JSObject *global) {
+	jsb_CC3ProjectionMatrix_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_CC3ProjectionMatrix_class->name = "CC3ProjectionMatrix";
+	jsb_CC3ProjectionMatrix_class->addProperty = JS_PropertyStub;
+	jsb_CC3ProjectionMatrix_class->delProperty = JS_PropertyStub;
+	jsb_CC3ProjectionMatrix_class->getProperty = JS_PropertyStub;
+	jsb_CC3ProjectionMatrix_class->setProperty = JS_StrictPropertyStub;
+	jsb_CC3ProjectionMatrix_class->enumerate = JS_EnumerateStub;
+	jsb_CC3ProjectionMatrix_class->resolve = JS_ResolveStub;
+	jsb_CC3ProjectionMatrix_class->convert = JS_ConvertStub;
+	jsb_CC3ProjectionMatrix_class->finalize = js_cocos3dx_CC3ProjectionMatrix_finalize;
+	jsb_CC3ProjectionMatrix_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	static JSPropertySpec properties[] = {
+		{0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+	};
+
+	static JSFunctionSpec funcs[] = {
+		JS_FN("extractQuaternion", js_cocos3dx_CC3ProjectionMatrix_extractQuaternion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("multiplyIntoCC3Matrix4x4", js_cocos3dx_CC3ProjectionMatrix_multiplyIntoCC3Matrix4x4, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("populateFromCC3Matrix3x3", js_cocos3dx_CC3ProjectionMatrix_populateFromCC3Matrix3x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("leftMultiplyIntoCC3Matrix3x3", js_cocos3dx_CC3ProjectionMatrix_leftMultiplyIntoCC3Matrix3x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("extractRotation", js_cocos3dx_CC3ProjectionMatrix_extractRotation, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("multiplyIntoCC3Matrix4x3", js_cocos3dx_CC3ProjectionMatrix_multiplyIntoCC3Matrix4x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("transformHomogeneousVector", js_cocos3dx_CC3ProjectionMatrix_transformHomogeneousVector, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("extractRightDirection", js_cocos3dx_CC3ProjectionMatrix_extractRightDirection, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("orthonormalizeRotationStartingWith", js_cocos3dx_CC3ProjectionMatrix_orthonormalizeRotationStartingWith, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("leftMultiplyByCC3Matrix3x3", js_cocos3dx_CC3ProjectionMatrix_leftMultiplyByCC3Matrix3x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("populateCC3Matrix3x3", js_cocos3dx_CC3ProjectionMatrix_populateCC3Matrix3x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("transformDirection", js_cocos3dx_CC3ProjectionMatrix_transformDirection, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("multiplyIntoCC3Matrix3x3", js_cocos3dx_CC3ProjectionMatrix_multiplyIntoCC3Matrix3x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("extractTranslation", js_cocos3dx_CC3ProjectionMatrix_extractTranslation, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("populateCC3Matrix4x3", js_cocos3dx_CC3ProjectionMatrix_populateCC3Matrix4x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("populateCC3Matrix4x4", js_cocos3dx_CC3ProjectionMatrix_populateCC3Matrix4x4, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("leftMultiplyIntoCC3Matrix4x3", js_cocos3dx_CC3ProjectionMatrix_leftMultiplyIntoCC3Matrix4x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("invertRigid", js_cocos3dx_CC3ProjectionMatrix_invertRigid, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("leftMultiplyIntoCC3Matrix4x4", js_cocos3dx_CC3ProjectionMatrix_leftMultiplyIntoCC3Matrix4x4, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("multiplyByCC3Matrix4x3", js_cocos3dx_CC3ProjectionMatrix_multiplyByCC3Matrix4x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("populateFromCC3Matrix4x3", js_cocos3dx_CC3ProjectionMatrix_populateFromCC3Matrix4x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("multiplyByCC3Matrix4x4", js_cocos3dx_CC3ProjectionMatrix_multiplyByCC3Matrix4x4, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("transpose", js_cocos3dx_CC3ProjectionMatrix_transpose, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("extractUpDirection", js_cocos3dx_CC3ProjectionMatrix_extractUpDirection, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("extractForwardDirection", js_cocos3dx_CC3ProjectionMatrix_extractForwardDirection, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("multiplyByCC3Matrix3x3", js_cocos3dx_CC3ProjectionMatrix_multiplyByCC3Matrix3x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("leftMultiplyByCC3Matrix4x4", js_cocos3dx_CC3ProjectionMatrix_leftMultiplyByCC3Matrix4x4, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("leftMultiplyByCC3Matrix4x3", js_cocos3dx_CC3ProjectionMatrix_leftMultiplyByCC3Matrix4x3, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("invertAdjoint", js_cocos3dx_CC3ProjectionMatrix_invertAdjoint, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("transformLocation", js_cocos3dx_CC3ProjectionMatrix_transformLocation, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("ctor", js_cocos3dx_CC3ProjectionMatrix_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FS_END
+	};
+
+	static JSFunctionSpec st_funcs[] = {
+		JS_FN("matrix", js_cocos3dx_CC3ProjectionMatrix_matrix, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FS_END
+	};
+
+	jsb_CC3ProjectionMatrix_prototype = JS_InitClass(
+		cx, global,
+		jsb_CC3Matrix_prototype,
+		jsb_CC3ProjectionMatrix_class,
+		js_cocos3dx_CC3ProjectionMatrix_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+	// make the class enumerable in the registered namespace
+	JSBool found;
+	JS_SetPropertyAttributes(cx, global, "CC3ProjectionMatrix", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+	// add the proto and JSClass to the type->js info hash table
+	TypeTest<cocos3d::CC3ProjectionMatrix> t;
+	js_type_class_t *p;
+	uint32_t typeId = t.s_id();
+	HASH_FIND_INT(_js_global_type_ht, &typeId, p);
+	if (!p) {
+		p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+		p->type = typeId;
+		p->jsclass = jsb_CC3ProjectionMatrix_class;
+		p->proto = jsb_CC3ProjectionMatrix_prototype;
 		p->parentProto = jsb_CC3Matrix_prototype;
 		HASH_ADD_INT(_js_global_type_ht, type, p);
 	}
@@ -6409,7 +7137,7 @@ JSBool js_cocos3dx_CC3Node_rotateByQuaternion(JSContext *cx, uint32_t argc, jsva
 	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 	if (argc == 1) {
 		cocos3d::CC3Quaternion arg0;
-		#pragma warning NO CONVERSION TO NATIVE FOR const CC3Quaternion;
+		ok &= jsval_to_c3dquaternion(cx, argv[0], &arg0);
 		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->rotateByQuaternion(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
@@ -9231,7 +9959,7 @@ JSBool js_cocos3dx_CC3Node_getQuaternion(JSContext *cx, uint32_t argc, jsval *vp
 	if (argc == 0) {
 		CC3Quaternion ret = cobj->getQuaternion();
 		jsval jsret;
-		#pragma warning NO CONVERSION FROM NATIVE FOR CC3Quaternion;
+		jsret = c3dquaternion_to_jsval(cx, ret);
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
@@ -10966,7 +11694,7 @@ JSBool js_cocos3dx_CC3Node_setQuaternion(JSContext *cx, uint32_t argc, jsval *vp
 	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 	if (argc == 1) {
 		cocos3d::CC3Quaternion arg0;
-		#pragma warning NO CONVERSION TO NATIVE FOR const CC3Quaternion;
+		ok &= jsval_to_c3dquaternion(cx, argv[0], &arg0);
 		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->setQuaternion(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
@@ -12085,6 +12813,24 @@ JSBool js_cocos3dx_CC3Node_descriptorFontSize(JSContext *cx, uint32_t argc, jsva
 	return JS_FALSE;
 }
 
+JSBool js_cocos3dx_CC3Node_quaternionFromRatation(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	if (argc == 1) {
+		cocos3d::CC3Vector arg0;
+		ok &= jsval_to_c3dvector3(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		CC3Quaternion ret = cocos3d::CC3Node::quaternionFromRatation(arg0);
+		jsval jsret;
+		jsret = c3dquaternion_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+	JS_ReportError(cx, "wrong number of arguments");
+	return JS_FALSE;
+}
+
 JSBool js_cocos3dx_CC3Node_nodeWithName(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	jsval *argv = JS_ARGV(cx, vp);
@@ -12761,6 +13507,7 @@ void js_register_cocos3dx_CC3Node(JSContext *cx, JSObject *global) {
 		JS_FN("setDirectionMarkerColor", js_cocos3dx_CC3Node_setDirectionMarkerColor, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setDescriptorFontSize", js_cocos3dx_CC3Node_setDescriptorFontSize, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("descriptorFontSize", js_cocos3dx_CC3Node_descriptorFontSize, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("quaternionFromRatation", js_cocos3dx_CC3Node_quaternionFromRatation, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("nodeWithName", js_cocos3dx_CC3Node_nodeWithName, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getWireframeBoxColor", js_cocos3dx_CC3Node_getWireframeBoxColor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("nodeWithTag", js_cocos3dx_CC3Node_nodeWithTag, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -15228,6 +15975,32 @@ JSBool js_cocos3dx_CC3Camera_getFrustum(JSContext *cx, uint32_t argc, jsval *vp)
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
+JSBool js_cocos3dx_CC3Camera_unprojectPointForMy(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3Camera* cobj = (cocos3d::CC3Camera *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 3) {
+		cocos2d::CCPoint arg0;
+		cocos3d::CC3Vector arg1;
+		cocos3d::CC3Vector arg2;
+		ok &= jsval_to_ccpoint(cx, argv[0], &arg0);
+		ok &= jsval_to_c3dvector3(cx, argv[1], &arg1);
+		ok &= jsval_to_c3dvector3(cx, argv[2], &arg2);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos3d::CC3Vector4 ret = cobj->unprojectPointForMy(arg0, arg1, arg2);
+		jsval jsret;
+		jsret = c3dvector4_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 3);
+	return JS_FALSE;
+}
 JSBool js_cocos3dx_CC3Camera_nodeWithName(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	jsval *argv = JS_ARGV(cx, vp);
@@ -15371,6 +16144,7 @@ void js_register_cocos3dx_CC3Camera(JSContext *cx, JSObject *global) {
 		JS_FN("ensureSceneUpdated", js_cocos3dx_CC3Camera_ensureSceneUpdated, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getEffectiveFieldOfView", js_cocos3dx_CC3Camera_getEffectiveFieldOfView, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getFrustum", js_cocos3dx_CC3Camera_getFrustum, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("unprojectPointForMy", js_cocos3dx_CC3Camera_unprojectPointForMy, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("ctor", js_cocos3dx_CC3Camera_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
 	};
@@ -44521,6 +45295,1364 @@ void js_register_cocos3dx_CC3ActionBezierTo(JSContext *cx, JSObject *global) {
 }
 
 
+JSClass  *jsb_CC3ActionInstant_class;
+JSObject *jsb_CC3ActionInstant_prototype;
+
+JSBool js_cocos3dx_CC3ActionInstant_reverse(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionInstant* cobj = (cocos3d::CC3ActionInstant *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cocos3d::CC3ActionInterval* ret = cobj->reverse();
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ActionInterval>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionInstant_update(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionInstant* cobj = (cocos3d::CC3ActionInstant *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		double arg0;
+		ok &= JS_ValueToNumber(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->update(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionInstant_step(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionInstant* cobj = (cocos3d::CC3ActionInstant *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		double arg0;
+		ok &= JS_ValueToNumber(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->step(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionInstant_isDone(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionInstant* cobj = (cocos3d::CC3ActionInstant *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		bool ret = cobj->isDone();
+		jsval jsret;
+		jsret = BOOLEAN_TO_JSVAL(ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionInstant_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionInstant* cobj = (cocos3d::CC3ActionInstant *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::CCZone* arg0;
+		do {
+			if (!argv[0].isObject()) { ok = JS_FALSE; break; }
+			js_proxy_t *proxy;
+			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			proxy = jsb_get_js_proxy(tmpObj);
+			arg0 = (cocos2d::CCZone*)(proxy ? proxy->ptr : NULL);
+			JSB_PRECONDITION2( arg0, cx, JS_FALSE, "Invalid Native Object");
+		} while (0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos2d::CCObject* ret = cobj->copyWithZone(arg0);
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::CCObject>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionInstant_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ActionInstant* cobj = new cocos3d::CC3ActionInstant();
+		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
+		if (_ccobj) {
+			_ccobj->autorelease();
+		}
+		TypeTest<cocos3d::CC3ActionInstant> t;
+		js_type_class_t *typeClass;
+		uint32_t typeId = t.s_id();
+		HASH_FIND_INT(_js_global_type_ht, &typeId, typeClass);
+		assert(typeClass);
+		JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+		// link the native object with the javascript object
+		js_proxy_t* p = jsb_new_proxy(cobj, obj);
+		JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionInstant");
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+
+
+
+extern JSObject *jsb_CC3ActionInterval_prototype;
+
+void js_cocos3dx_CC3ActionInstant_finalize(JSFreeOp *fop, JSObject *obj) {
+    CCLOGINFO("jsbindings: finalizing JS object %p (CC3ActionInstant)", obj);
+}
+
+static JSBool js_cocos3dx_CC3ActionInstant_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    cocos3d::CC3ActionInstant *nobj = new cocos3d::CC3ActionInstant();
+    js_proxy_t* p = jsb_new_proxy(nobj, obj);
+    nobj->autorelease();
+    JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionInstant");
+    JS_SET_RVAL(cx, vp, JSVAL_VOID);
+    return JS_TRUE;
+}
+
+void js_register_cocos3dx_CC3ActionInstant(JSContext *cx, JSObject *global) {
+	jsb_CC3ActionInstant_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_CC3ActionInstant_class->name = "CC3ActionInstant";
+	jsb_CC3ActionInstant_class->addProperty = JS_PropertyStub;
+	jsb_CC3ActionInstant_class->delProperty = JS_PropertyStub;
+	jsb_CC3ActionInstant_class->getProperty = JS_PropertyStub;
+	jsb_CC3ActionInstant_class->setProperty = JS_StrictPropertyStub;
+	jsb_CC3ActionInstant_class->enumerate = JS_EnumerateStub;
+	jsb_CC3ActionInstant_class->resolve = JS_ResolveStub;
+	jsb_CC3ActionInstant_class->convert = JS_ConvertStub;
+	jsb_CC3ActionInstant_class->finalize = js_cocos3dx_CC3ActionInstant_finalize;
+	jsb_CC3ActionInstant_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	JSPropertySpec *properties = NULL;
+
+	static JSFunctionSpec funcs[] = {
+		JS_FN("reverse", js_cocos3dx_CC3ActionInstant_reverse, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("update", js_cocos3dx_CC3ActionInstant_update, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("step", js_cocos3dx_CC3ActionInstant_step, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("isDone", js_cocos3dx_CC3ActionInstant_isDone, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("copyWithZone", js_cocos3dx_CC3ActionInstant_copyWithZone, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("ctor", js_cocos3dx_CC3ActionInstant_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FS_END
+	};
+
+	JSFunctionSpec *st_funcs = NULL;
+
+	jsb_CC3ActionInstant_prototype = JS_InitClass(
+		cx, global,
+		jsb_CC3ActionInterval_prototype,
+		jsb_CC3ActionInstant_class,
+		js_cocos3dx_CC3ActionInstant_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+	// make the class enumerable in the registered namespace
+	JSBool found;
+	JS_SetPropertyAttributes(cx, global, "CC3ActionInstant", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+	// add the proto and JSClass to the type->js info hash table
+	TypeTest<cocos3d::CC3ActionInstant> t;
+	js_type_class_t *p;
+	uint32_t typeId = t.s_id();
+	HASH_FIND_INT(_js_global_type_ht, &typeId, p);
+	if (!p) {
+		p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+		p->type = typeId;
+		p->jsclass = jsb_CC3ActionInstant_class;
+		p->proto = jsb_CC3ActionInstant_prototype;
+		p->parentProto = jsb_CC3ActionInterval_prototype;
+		HASH_ADD_INT(_js_global_type_ht, type, p);
+	}
+}
+
+
+JSClass  *jsb_CC3ActionShow_class;
+JSObject *jsb_CC3ActionShow_prototype;
+
+JSBool js_cocos3dx_CC3ActionShow_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionShow* cobj = (cocos3d::CC3ActionShow *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::CCZone* arg0;
+		do {
+			if (!argv[0].isObject()) { ok = JS_FALSE; break; }
+			js_proxy_t *proxy;
+			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			proxy = jsb_get_js_proxy(tmpObj);
+			arg0 = (cocos2d::CCZone*)(proxy ? proxy->ptr : NULL);
+			JSB_PRECONDITION2( arg0, cx, JS_FALSE, "Invalid Native Object");
+		} while (0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos2d::CCObject* ret = cobj->copyWithZone(arg0);
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::CCObject>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionShow_reverse(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionShow* cobj = (cocos3d::CC3ActionShow *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cocos3d::CC3ActionInterval* ret = cobj->reverse();
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ActionInterval>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionShow_update(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionShow* cobj = (cocos3d::CC3ActionShow *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		double arg0;
+		ok &= JS_ValueToNumber(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->update(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionShow_create(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ActionShow* ret = cocos3d::CC3ActionShow::create();
+		jsval jsret;
+		do {
+		if (ret) {
+			js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ActionShow>(cx, ret);
+			jsret = OBJECT_TO_JSVAL(proxy->obj);
+		} else {
+			jsret = JSVAL_NULL;
+		}
+	} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+	JS_ReportError(cx, "wrong number of arguments");
+	return JS_FALSE;
+}
+
+JSBool js_cocos3dx_CC3ActionShow_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ActionShow* cobj = new cocos3d::CC3ActionShow();
+		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
+		if (_ccobj) {
+			_ccobj->autorelease();
+		}
+		TypeTest<cocos3d::CC3ActionShow> t;
+		js_type_class_t *typeClass;
+		uint32_t typeId = t.s_id();
+		HASH_FIND_INT(_js_global_type_ht, &typeId, typeClass);
+		assert(typeClass);
+		JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+		// link the native object with the javascript object
+		js_proxy_t* p = jsb_new_proxy(cobj, obj);
+		JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionShow");
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+
+
+
+extern JSObject *jsb_CC3ActionInstant_prototype;
+
+void js_cocos3dx_CC3ActionShow_finalize(JSFreeOp *fop, JSObject *obj) {
+    CCLOGINFO("jsbindings: finalizing JS object %p (CC3ActionShow)", obj);
+}
+
+static JSBool js_cocos3dx_CC3ActionShow_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    cocos3d::CC3ActionShow *nobj = new cocos3d::CC3ActionShow();
+    js_proxy_t* p = jsb_new_proxy(nobj, obj);
+    nobj->autorelease();
+    JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionShow");
+    JS_SET_RVAL(cx, vp, JSVAL_VOID);
+    return JS_TRUE;
+}
+
+void js_register_cocos3dx_CC3ActionShow(JSContext *cx, JSObject *global) {
+	jsb_CC3ActionShow_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_CC3ActionShow_class->name = "CC3ActionShow";
+	jsb_CC3ActionShow_class->addProperty = JS_PropertyStub;
+	jsb_CC3ActionShow_class->delProperty = JS_PropertyStub;
+	jsb_CC3ActionShow_class->getProperty = JS_PropertyStub;
+	jsb_CC3ActionShow_class->setProperty = JS_StrictPropertyStub;
+	jsb_CC3ActionShow_class->enumerate = JS_EnumerateStub;
+	jsb_CC3ActionShow_class->resolve = JS_ResolveStub;
+	jsb_CC3ActionShow_class->convert = JS_ConvertStub;
+	jsb_CC3ActionShow_class->finalize = js_cocos3dx_CC3ActionShow_finalize;
+	jsb_CC3ActionShow_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	JSPropertySpec *properties = NULL;
+
+	static JSFunctionSpec funcs[] = {
+		JS_FN("copyWithZone", js_cocos3dx_CC3ActionShow_copyWithZone, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("reverse", js_cocos3dx_CC3ActionShow_reverse, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("update", js_cocos3dx_CC3ActionShow_update, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("ctor", js_cocos3dx_CC3ActionShow_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FS_END
+	};
+
+	static JSFunctionSpec st_funcs[] = {
+		JS_FN("create", js_cocos3dx_CC3ActionShow_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FS_END
+	};
+
+	jsb_CC3ActionShow_prototype = JS_InitClass(
+		cx, global,
+		jsb_CC3ActionInstant_prototype,
+		jsb_CC3ActionShow_class,
+		js_cocos3dx_CC3ActionShow_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+	// make the class enumerable in the registered namespace
+	JSBool found;
+	JS_SetPropertyAttributes(cx, global, "CC3ActionShow", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+	// add the proto and JSClass to the type->js info hash table
+	TypeTest<cocos3d::CC3ActionShow> t;
+	js_type_class_t *p;
+	uint32_t typeId = t.s_id();
+	HASH_FIND_INT(_js_global_type_ht, &typeId, p);
+	if (!p) {
+		p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+		p->type = typeId;
+		p->jsclass = jsb_CC3ActionShow_class;
+		p->proto = jsb_CC3ActionShow_prototype;
+		p->parentProto = jsb_CC3ActionInstant_prototype;
+		HASH_ADD_INT(_js_global_type_ht, type, p);
+	}
+}
+
+
+JSClass  *jsb_CC3ActionHide_class;
+JSObject *jsb_CC3ActionHide_prototype;
+
+JSBool js_cocos3dx_CC3ActionHide_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionHide* cobj = (cocos3d::CC3ActionHide *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::CCZone* arg0;
+		do {
+			if (!argv[0].isObject()) { ok = JS_FALSE; break; }
+			js_proxy_t *proxy;
+			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			proxy = jsb_get_js_proxy(tmpObj);
+			arg0 = (cocos2d::CCZone*)(proxy ? proxy->ptr : NULL);
+			JSB_PRECONDITION2( arg0, cx, JS_FALSE, "Invalid Native Object");
+		} while (0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos2d::CCObject* ret = cobj->copyWithZone(arg0);
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::CCObject>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionHide_reverse(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionHide* cobj = (cocos3d::CC3ActionHide *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cocos3d::CC3ActionInterval* ret = cobj->reverse();
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ActionInterval>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionHide_update(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionHide* cobj = (cocos3d::CC3ActionHide *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		double arg0;
+		ok &= JS_ValueToNumber(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->update(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionHide_create(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ActionHide* ret = cocos3d::CC3ActionHide::create();
+		jsval jsret;
+		do {
+		if (ret) {
+			js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ActionHide>(cx, ret);
+			jsret = OBJECT_TO_JSVAL(proxy->obj);
+		} else {
+			jsret = JSVAL_NULL;
+		}
+	} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+	JS_ReportError(cx, "wrong number of arguments");
+	return JS_FALSE;
+}
+
+JSBool js_cocos3dx_CC3ActionHide_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ActionHide* cobj = new cocos3d::CC3ActionHide();
+		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
+		if (_ccobj) {
+			_ccobj->autorelease();
+		}
+		TypeTest<cocos3d::CC3ActionHide> t;
+		js_type_class_t *typeClass;
+		uint32_t typeId = t.s_id();
+		HASH_FIND_INT(_js_global_type_ht, &typeId, typeClass);
+		assert(typeClass);
+		JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+		// link the native object with the javascript object
+		js_proxy_t* p = jsb_new_proxy(cobj, obj);
+		JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionHide");
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+
+
+
+extern JSObject *jsb_CC3ActionInstant_prototype;
+
+void js_cocos3dx_CC3ActionHide_finalize(JSFreeOp *fop, JSObject *obj) {
+    CCLOGINFO("jsbindings: finalizing JS object %p (CC3ActionHide)", obj);
+}
+
+static JSBool js_cocos3dx_CC3ActionHide_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    cocos3d::CC3ActionHide *nobj = new cocos3d::CC3ActionHide();
+    js_proxy_t* p = jsb_new_proxy(nobj, obj);
+    nobj->autorelease();
+    JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionHide");
+    JS_SET_RVAL(cx, vp, JSVAL_VOID);
+    return JS_TRUE;
+}
+
+void js_register_cocos3dx_CC3ActionHide(JSContext *cx, JSObject *global) {
+	jsb_CC3ActionHide_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_CC3ActionHide_class->name = "CC3ActionHide";
+	jsb_CC3ActionHide_class->addProperty = JS_PropertyStub;
+	jsb_CC3ActionHide_class->delProperty = JS_PropertyStub;
+	jsb_CC3ActionHide_class->getProperty = JS_PropertyStub;
+	jsb_CC3ActionHide_class->setProperty = JS_StrictPropertyStub;
+	jsb_CC3ActionHide_class->enumerate = JS_EnumerateStub;
+	jsb_CC3ActionHide_class->resolve = JS_ResolveStub;
+	jsb_CC3ActionHide_class->convert = JS_ConvertStub;
+	jsb_CC3ActionHide_class->finalize = js_cocos3dx_CC3ActionHide_finalize;
+	jsb_CC3ActionHide_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	JSPropertySpec *properties = NULL;
+
+	static JSFunctionSpec funcs[] = {
+		JS_FN("copyWithZone", js_cocos3dx_CC3ActionHide_copyWithZone, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("reverse", js_cocos3dx_CC3ActionHide_reverse, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("update", js_cocos3dx_CC3ActionHide_update, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("ctor", js_cocos3dx_CC3ActionHide_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FS_END
+	};
+
+	static JSFunctionSpec st_funcs[] = {
+		JS_FN("create", js_cocos3dx_CC3ActionHide_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FS_END
+	};
+
+	jsb_CC3ActionHide_prototype = JS_InitClass(
+		cx, global,
+		jsb_CC3ActionInstant_prototype,
+		jsb_CC3ActionHide_class,
+		js_cocos3dx_CC3ActionHide_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+	// make the class enumerable in the registered namespace
+	JSBool found;
+	JS_SetPropertyAttributes(cx, global, "CC3ActionHide", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+	// add the proto and JSClass to the type->js info hash table
+	TypeTest<cocos3d::CC3ActionHide> t;
+	js_type_class_t *p;
+	uint32_t typeId = t.s_id();
+	HASH_FIND_INT(_js_global_type_ht, &typeId, p);
+	if (!p) {
+		p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+		p->type = typeId;
+		p->jsclass = jsb_CC3ActionHide_class;
+		p->proto = jsb_CC3ActionHide_prototype;
+		p->parentProto = jsb_CC3ActionInstant_prototype;
+		HASH_ADD_INT(_js_global_type_ht, type, p);
+	}
+}
+
+
+JSClass  *jsb_CC3ActionToggleVisibility_class;
+JSObject *jsb_CC3ActionToggleVisibility_prototype;
+
+JSBool js_cocos3dx_CC3ActionToggleVisibility_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionToggleVisibility* cobj = (cocos3d::CC3ActionToggleVisibility *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::CCZone* arg0;
+		do {
+			if (!argv[0].isObject()) { ok = JS_FALSE; break; }
+			js_proxy_t *proxy;
+			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			proxy = jsb_get_js_proxy(tmpObj);
+			arg0 = (cocos2d::CCZone*)(proxy ? proxy->ptr : NULL);
+			JSB_PRECONDITION2( arg0, cx, JS_FALSE, "Invalid Native Object");
+		} while (0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos2d::CCObject* ret = cobj->copyWithZone(arg0);
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::CCObject>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionToggleVisibility_update(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionToggleVisibility* cobj = (cocos3d::CC3ActionToggleVisibility *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		double arg0;
+		ok &= JS_ValueToNumber(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->update(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionToggleVisibility_create(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ActionToggleVisibility* ret = cocos3d::CC3ActionToggleVisibility::create();
+		jsval jsret;
+		do {
+		if (ret) {
+			js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ActionToggleVisibility>(cx, ret);
+			jsret = OBJECT_TO_JSVAL(proxy->obj);
+		} else {
+			jsret = JSVAL_NULL;
+		}
+	} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+	JS_ReportError(cx, "wrong number of arguments");
+	return JS_FALSE;
+}
+
+JSBool js_cocos3dx_CC3ActionToggleVisibility_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ActionToggleVisibility* cobj = new cocos3d::CC3ActionToggleVisibility();
+		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
+		if (_ccobj) {
+			_ccobj->autorelease();
+		}
+		TypeTest<cocos3d::CC3ActionToggleVisibility> t;
+		js_type_class_t *typeClass;
+		uint32_t typeId = t.s_id();
+		HASH_FIND_INT(_js_global_type_ht, &typeId, typeClass);
+		assert(typeClass);
+		JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+		// link the native object with the javascript object
+		js_proxy_t* p = jsb_new_proxy(cobj, obj);
+		JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionToggleVisibility");
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+
+
+
+extern JSObject *jsb_CC3ActionInstant_prototype;
+
+void js_cocos3dx_CC3ActionToggleVisibility_finalize(JSFreeOp *fop, JSObject *obj) {
+    CCLOGINFO("jsbindings: finalizing JS object %p (CC3ActionToggleVisibility)", obj);
+}
+
+static JSBool js_cocos3dx_CC3ActionToggleVisibility_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    cocos3d::CC3ActionToggleVisibility *nobj = new cocos3d::CC3ActionToggleVisibility();
+    js_proxy_t* p = jsb_new_proxy(nobj, obj);
+    nobj->autorelease();
+    JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionToggleVisibility");
+    JS_SET_RVAL(cx, vp, JSVAL_VOID);
+    return JS_TRUE;
+}
+
+void js_register_cocos3dx_CC3ActionToggleVisibility(JSContext *cx, JSObject *global) {
+	jsb_CC3ActionToggleVisibility_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_CC3ActionToggleVisibility_class->name = "CC3ActionToggleVisibility";
+	jsb_CC3ActionToggleVisibility_class->addProperty = JS_PropertyStub;
+	jsb_CC3ActionToggleVisibility_class->delProperty = JS_PropertyStub;
+	jsb_CC3ActionToggleVisibility_class->getProperty = JS_PropertyStub;
+	jsb_CC3ActionToggleVisibility_class->setProperty = JS_StrictPropertyStub;
+	jsb_CC3ActionToggleVisibility_class->enumerate = JS_EnumerateStub;
+	jsb_CC3ActionToggleVisibility_class->resolve = JS_ResolveStub;
+	jsb_CC3ActionToggleVisibility_class->convert = JS_ConvertStub;
+	jsb_CC3ActionToggleVisibility_class->finalize = js_cocos3dx_CC3ActionToggleVisibility_finalize;
+	jsb_CC3ActionToggleVisibility_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	JSPropertySpec *properties = NULL;
+
+	static JSFunctionSpec funcs[] = {
+		JS_FN("copyWithZone", js_cocos3dx_CC3ActionToggleVisibility_copyWithZone, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("update", js_cocos3dx_CC3ActionToggleVisibility_update, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("ctor", js_cocos3dx_CC3ActionToggleVisibility_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FS_END
+	};
+
+	static JSFunctionSpec st_funcs[] = {
+		JS_FN("create", js_cocos3dx_CC3ActionToggleVisibility_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FS_END
+	};
+
+	jsb_CC3ActionToggleVisibility_prototype = JS_InitClass(
+		cx, global,
+		jsb_CC3ActionInstant_prototype,
+		jsb_CC3ActionToggleVisibility_class,
+		js_cocos3dx_CC3ActionToggleVisibility_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+	// make the class enumerable in the registered namespace
+	JSBool found;
+	JS_SetPropertyAttributes(cx, global, "CC3ActionToggleVisibility", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+	// add the proto and JSClass to the type->js info hash table
+	TypeTest<cocos3d::CC3ActionToggleVisibility> t;
+	js_type_class_t *p;
+	uint32_t typeId = t.s_id();
+	HASH_FIND_INT(_js_global_type_ht, &typeId, p);
+	if (!p) {
+		p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+		p->type = typeId;
+		p->jsclass = jsb_CC3ActionToggleVisibility_class;
+		p->proto = jsb_CC3ActionToggleVisibility_prototype;
+		p->parentProto = jsb_CC3ActionInstant_prototype;
+		HASH_ADD_INT(_js_global_type_ht, type, p);
+	}
+}
+
+
+JSClass  *jsb_CC3ActionRemoveSelf_class;
+JSObject *jsb_CC3ActionRemoveSelf_prototype;
+
+JSBool js_cocos3dx_CC3ActionRemoveSelf_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionRemoveSelf* cobj = (cocos3d::CC3ActionRemoveSelf *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::CCZone* arg0;
+		do {
+			if (!argv[0].isObject()) { ok = JS_FALSE; break; }
+			js_proxy_t *proxy;
+			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			proxy = jsb_get_js_proxy(tmpObj);
+			arg0 = (cocos2d::CCZone*)(proxy ? proxy->ptr : NULL);
+			JSB_PRECONDITION2( arg0, cx, JS_FALSE, "Invalid Native Object");
+		} while (0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos2d::CCObject* ret = cobj->copyWithZone(arg0);
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::CCObject>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionRemoveSelf_init(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionRemoveSelf* cobj = (cocos3d::CC3ActionRemoveSelf *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		JSBool arg0;
+		ok &= JS_ValueToBoolean(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		bool ret = cobj->init(arg0);
+		jsval jsret;
+		jsret = BOOLEAN_TO_JSVAL(ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionRemoveSelf_reverse(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionRemoveSelf* cobj = (cocos3d::CC3ActionRemoveSelf *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cocos3d::CC3ActionInterval* ret = cobj->reverse();
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ActionInterval>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionRemoveSelf_update(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionRemoveSelf* cobj = (cocos3d::CC3ActionRemoveSelf *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		double arg0;
+		ok &= JS_ValueToNumber(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->update(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionRemoveSelf_create(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	if (argc == 0) {
+		cocos3d::CC3ActionRemoveSelf* ret = cocos3d::CC3ActionRemoveSelf::create();
+		jsval jsret;
+		do {
+		if (ret) {
+			js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ActionRemoveSelf>(cx, ret);
+			jsret = OBJECT_TO_JSVAL(proxy->obj);
+		} else {
+			jsret = JSVAL_NULL;
+		}
+	} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+	if (argc == 1) {
+		JSBool arg0;
+		ok &= JS_ValueToBoolean(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos3d::CC3ActionRemoveSelf* ret = cocos3d::CC3ActionRemoveSelf::create(arg0);
+		jsval jsret;
+		do {
+		if (ret) {
+			js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ActionRemoveSelf>(cx, ret);
+			jsret = OBJECT_TO_JSVAL(proxy->obj);
+		} else {
+			jsret = JSVAL_NULL;
+		}
+	} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+	JS_ReportError(cx, "wrong number of arguments");
+	return JS_FALSE;
+}
+
+JSBool js_cocos3dx_CC3ActionRemoveSelf_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ActionRemoveSelf* cobj = new cocos3d::CC3ActionRemoveSelf();
+		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
+		if (_ccobj) {
+			_ccobj->autorelease();
+		}
+		TypeTest<cocos3d::CC3ActionRemoveSelf> t;
+		js_type_class_t *typeClass;
+		uint32_t typeId = t.s_id();
+		HASH_FIND_INT(_js_global_type_ht, &typeId, typeClass);
+		assert(typeClass);
+		JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+		// link the native object with the javascript object
+		js_proxy_t* p = jsb_new_proxy(cobj, obj);
+		JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionRemoveSelf");
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+
+
+
+extern JSObject *jsb_CC3ActionInstant_prototype;
+
+void js_cocos3dx_CC3ActionRemoveSelf_finalize(JSFreeOp *fop, JSObject *obj) {
+    CCLOGINFO("jsbindings: finalizing JS object %p (CC3ActionRemoveSelf)", obj);
+}
+
+static JSBool js_cocos3dx_CC3ActionRemoveSelf_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    cocos3d::CC3ActionRemoveSelf *nobj = new cocos3d::CC3ActionRemoveSelf();
+    js_proxy_t* p = jsb_new_proxy(nobj, obj);
+    nobj->autorelease();
+    JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionRemoveSelf");
+    JS_SET_RVAL(cx, vp, JSVAL_VOID);
+    return JS_TRUE;
+}
+
+void js_register_cocos3dx_CC3ActionRemoveSelf(JSContext *cx, JSObject *global) {
+	jsb_CC3ActionRemoveSelf_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_CC3ActionRemoveSelf_class->name = "CC3ActionRemoveSelf";
+	jsb_CC3ActionRemoveSelf_class->addProperty = JS_PropertyStub;
+	jsb_CC3ActionRemoveSelf_class->delProperty = JS_PropertyStub;
+	jsb_CC3ActionRemoveSelf_class->getProperty = JS_PropertyStub;
+	jsb_CC3ActionRemoveSelf_class->setProperty = JS_StrictPropertyStub;
+	jsb_CC3ActionRemoveSelf_class->enumerate = JS_EnumerateStub;
+	jsb_CC3ActionRemoveSelf_class->resolve = JS_ResolveStub;
+	jsb_CC3ActionRemoveSelf_class->convert = JS_ConvertStub;
+	jsb_CC3ActionRemoveSelf_class->finalize = js_cocos3dx_CC3ActionRemoveSelf_finalize;
+	jsb_CC3ActionRemoveSelf_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	static JSPropertySpec properties[] = {
+		{0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+	};
+
+	static JSFunctionSpec funcs[] = {
+		JS_FN("copyWithZone", js_cocos3dx_CC3ActionRemoveSelf_copyWithZone, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("init", js_cocos3dx_CC3ActionRemoveSelf_init, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("reverse", js_cocos3dx_CC3ActionRemoveSelf_reverse, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("update", js_cocos3dx_CC3ActionRemoveSelf_update, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("ctor", js_cocos3dx_CC3ActionRemoveSelf_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FS_END
+	};
+
+	static JSFunctionSpec st_funcs[] = {
+		JS_FN("create", js_cocos3dx_CC3ActionRemoveSelf_create, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FS_END
+	};
+
+	jsb_CC3ActionRemoveSelf_prototype = JS_InitClass(
+		cx, global,
+		jsb_CC3ActionInstant_prototype,
+		jsb_CC3ActionRemoveSelf_class,
+		js_cocos3dx_CC3ActionRemoveSelf_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+	// make the class enumerable in the registered namespace
+	JSBool found;
+	JS_SetPropertyAttributes(cx, global, "CC3ActionRemoveSelf", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+	// add the proto and JSClass to the type->js info hash table
+	TypeTest<cocos3d::CC3ActionRemoveSelf> t;
+	js_type_class_t *p;
+	uint32_t typeId = t.s_id();
+	HASH_FIND_INT(_js_global_type_ht, &typeId, p);
+	if (!p) {
+		p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+		p->type = typeId;
+		p->jsclass = jsb_CC3ActionRemoveSelf_class;
+		p->proto = jsb_CC3ActionRemoveSelf_prototype;
+		p->parentProto = jsb_CC3ActionInstant_prototype;
+		HASH_ADD_INT(_js_global_type_ht, type, p);
+	}
+}
+
+
+JSClass  *jsb_CC3ActionCallFunc_class;
+JSObject *jsb_CC3ActionCallFunc_prototype;
+
+JSBool js_cocos3dx_CC3ActionCallFunc_execute(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionCallFunc* cobj = (cocos3d::CC3ActionCallFunc *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cobj->execute();
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionCallFunc_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionCallFunc* cobj = (cocos3d::CC3ActionCallFunc *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::CCZone* arg0;
+		do {
+			if (!argv[0].isObject()) { ok = JS_FALSE; break; }
+			js_proxy_t *proxy;
+			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			proxy = jsb_get_js_proxy(tmpObj);
+			arg0 = (cocos2d::CCZone*)(proxy ? proxy->ptr : NULL);
+			JSB_PRECONDITION2( arg0, cx, JS_FALSE, "Invalid Native Object");
+		} while (0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos2d::CCObject* ret = cobj->copyWithZone(arg0);
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::CCObject>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionCallFunc_initWithTarget(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionCallFunc* cobj = (cocos3d::CC3ActionCallFunc *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::CCObject* arg0;
+		do {
+			if (!argv[0].isObject()) { ok = JS_FALSE; break; }
+			js_proxy_t *proxy;
+			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			proxy = jsb_get_js_proxy(tmpObj);
+			arg0 = (cocos2d::CCObject*)(proxy ? proxy->ptr : NULL);
+			JSB_PRECONDITION2( arg0, cx, JS_FALSE, "Invalid Native Object");
+		} while (0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		bool ret = cobj->initWithTarget(arg0);
+		jsval jsret;
+		jsret = BOOLEAN_TO_JSVAL(ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionCallFunc_update(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionCallFunc* cobj = (cocos3d::CC3ActionCallFunc *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		double arg0;
+		ok &= JS_ValueToNumber(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->update(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionCallFunc_getTargetCallback(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionCallFunc* cobj = (cocos3d::CC3ActionCallFunc *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		cocos2d::CCObject* ret = cobj->getTargetCallback();
+		jsval jsret;
+		do {
+			if (ret) {
+				js_proxy_t *proxy = js_get_or_create_proxy<cocos2d::CCObject>(cx, ret);
+				jsret = OBJECT_TO_JSVAL(proxy->obj);
+			} else {
+				jsret = JSVAL_NULL;
+			}
+		} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionCallFunc_getScriptHandler(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionCallFunc* cobj = (cocos3d::CC3ActionCallFunc *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 0) {
+		int ret = cobj->getScriptHandler();
+		jsval jsret;
+		jsret = int32_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionCallFunc_setTargetCallback(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cocos3d::CC3ActionCallFunc* cobj = (cocos3d::CC3ActionCallFunc *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	if (argc == 1) {
+		cocos2d::CCObject* arg0;
+		do {
+			if (!argv[0].isObject()) { ok = JS_FALSE; break; }
+			js_proxy_t *proxy;
+			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
+			proxy = jsb_get_js_proxy(tmpObj);
+			arg0 = (cocos2d::CCObject*)(proxy ? proxy->ptr : NULL);
+			JSB_PRECONDITION2( arg0, cx, JS_FALSE, "Invalid Native Object");
+		} while (0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->setTargetCallback(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_cocos3dx_CC3ActionCallFunc_create(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	jsval *argv = JS_ARGV(cx, vp);
+	JSBool ok = JS_TRUE;
+	if (argc == 1) {
+		int arg0;
+		ok &= jsval_to_int32(cx, argv[0], (int32_t *)&arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cocos3d::CC3ActionCallFunc* ret = cocos3d::CC3ActionCallFunc::create(arg0);
+		jsval jsret;
+		do {
+		if (ret) {
+			js_proxy_t *proxy = js_get_or_create_proxy<cocos3d::CC3ActionCallFunc>(cx, ret);
+			jsret = OBJECT_TO_JSVAL(proxy->obj);
+		} else {
+			jsret = JSVAL_NULL;
+		}
+	} while (0);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+	JS_ReportError(cx, "wrong number of arguments");
+	return JS_FALSE;
+}
+
+JSBool js_cocos3dx_CC3ActionCallFunc_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	if (argc == 0) {
+		cocos3d::CC3ActionCallFunc* cobj = new cocos3d::CC3ActionCallFunc();
+		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
+		if (_ccobj) {
+			_ccobj->autorelease();
+		}
+		TypeTest<cocos3d::CC3ActionCallFunc> t;
+		js_type_class_t *typeClass;
+		uint32_t typeId = t.s_id();
+		HASH_FIND_INT(_js_global_type_ht, &typeId, typeClass);
+		assert(typeClass);
+		JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
+		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
+		// link the native object with the javascript object
+		js_proxy_t* p = jsb_new_proxy(cobj, obj);
+		JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionCallFunc");
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
+	return JS_FALSE;
+}
+
+
+
+extern JSObject *jsb_CC3ActionInstant_prototype;
+
+void js_cocos3dx_CC3ActionCallFunc_finalize(JSFreeOp *fop, JSObject *obj) {
+    CCLOGINFO("jsbindings: finalizing JS object %p (CC3ActionCallFunc)", obj);
+}
+
+static JSBool js_cocos3dx_CC3ActionCallFunc_ctor(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+    cocos3d::CC3ActionCallFunc *nobj = new cocos3d::CC3ActionCallFunc();
+    js_proxy_t* p = jsb_new_proxy(nobj, obj);
+    nobj->autorelease();
+    JS_AddNamedObjectRoot(cx, &p->obj, "cocos3d::CC3ActionCallFunc");
+    JS_SET_RVAL(cx, vp, JSVAL_VOID);
+    return JS_TRUE;
+}
+
+void js_register_cocos3dx_CC3ActionCallFunc(JSContext *cx, JSObject *global) {
+	jsb_CC3ActionCallFunc_class = (JSClass *)calloc(1, sizeof(JSClass));
+	jsb_CC3ActionCallFunc_class->name = "CC3ActionCallFunc";
+	jsb_CC3ActionCallFunc_class->addProperty = JS_PropertyStub;
+	jsb_CC3ActionCallFunc_class->delProperty = JS_PropertyStub;
+	jsb_CC3ActionCallFunc_class->getProperty = JS_PropertyStub;
+	jsb_CC3ActionCallFunc_class->setProperty = JS_StrictPropertyStub;
+	jsb_CC3ActionCallFunc_class->enumerate = JS_EnumerateStub;
+	jsb_CC3ActionCallFunc_class->resolve = JS_ResolveStub;
+	jsb_CC3ActionCallFunc_class->convert = JS_ConvertStub;
+	jsb_CC3ActionCallFunc_class->finalize = js_cocos3dx_CC3ActionCallFunc_finalize;
+	jsb_CC3ActionCallFunc_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+
+	static JSPropertySpec properties[] = {
+		{0, 0, 0, JSOP_NULLWRAPPER, JSOP_NULLWRAPPER}
+	};
+
+	static JSFunctionSpec funcs[] = {
+		JS_FN("execute", js_cocos3dx_CC3ActionCallFunc_execute, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("copyWithZone", js_cocos3dx_CC3ActionCallFunc_copyWithZone, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("initWithTarget", js_cocos3dx_CC3ActionCallFunc_initWithTarget, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("update", js_cocos3dx_CC3ActionCallFunc_update, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("getTargetCallback", js_cocos3dx_CC3ActionCallFunc_getTargetCallback, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("getScriptHandler", js_cocos3dx_CC3ActionCallFunc_getScriptHandler, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("setTargetCallback", js_cocos3dx_CC3ActionCallFunc_setTargetCallback, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("ctor", js_cocos3dx_CC3ActionCallFunc_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FS_END
+	};
+
+	static JSFunctionSpec st_funcs[] = {
+		JS_FN("create", js_cocos3dx_CC3ActionCallFunc_create, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FS_END
+	};
+
+	jsb_CC3ActionCallFunc_prototype = JS_InitClass(
+		cx, global,
+		jsb_CC3ActionInstant_prototype,
+		jsb_CC3ActionCallFunc_class,
+		js_cocos3dx_CC3ActionCallFunc_constructor, 0, // constructor
+		properties,
+		funcs,
+		NULL, // no static properties
+		st_funcs);
+	// make the class enumerable in the registered namespace
+	JSBool found;
+	JS_SetPropertyAttributes(cx, global, "CC3ActionCallFunc", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
+
+	// add the proto and JSClass to the type->js info hash table
+	TypeTest<cocos3d::CC3ActionCallFunc> t;
+	js_type_class_t *p;
+	uint32_t typeId = t.s_id();
+	HASH_FIND_INT(_js_global_type_ht, &typeId, p);
+	if (!p) {
+		p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
+		p->type = typeId;
+		p->jsclass = jsb_CC3ActionCallFunc_class;
+		p->proto = jsb_CC3ActionCallFunc_prototype;
+		p->parentProto = jsb_CC3ActionInstant_prototype;
+		HASH_ADD_INT(_js_global_type_ht, type, p);
+	}
+}
+
+
 JSClass  *jsb_CC3NodeAnimation_class;
 JSObject *jsb_CC3NodeAnimation_prototype;
 
@@ -44560,7 +46692,7 @@ JSBool js_cocos3dx_CC3NodeAnimation_getQuaternionAtFrame(JSContext *cx, uint32_t
 		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		CC3Quaternion ret = cobj->getQuaternionAtFrame(arg0);
 		jsval jsret;
-		#pragma warning NO CONVERSION FROM NATIVE FOR CC3Quaternion;
+		jsret = c3dquaternion_to_jsval(cx, ret);
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
@@ -52703,7 +54835,7 @@ JSBool js_cocos3dx_CC3PODNodeAnimation_getQuaternionAtFrame(JSContext *cx, uint3
 		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		CC3Quaternion ret = cobj->getQuaternionAtFrame(arg0);
 		jsval jsret;
-		#pragma warning NO CONVERSION FROM NATIVE FOR CC3Quaternion;
+		jsret = c3dquaternion_to_jsval(cx, ret);
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
@@ -60861,7 +62993,7 @@ void register_all_cocos3dx(JSContext* cx, JSObject* obj) {
 	js_register_cocos3dx_CC3ActionScaleTo(cx, obj);
 	js_register_cocos3dx_CC3NodeAnimation(cx, obj);
 	js_register_cocos3dx_CC3PODNodeAnimation(cx, obj);
-	js_register_cocos3dx_CC3ActionRotateToLookTowards(cx, obj);
+	js_register_cocos3dx_CC3ActionManager(cx, obj);
 	js_register_cocos3dx_CC3ActionAnimate(cx, obj);
 	js_register_cocos3dx_CC3Camera(cx, obj);
 	js_register_cocos3dx_CC3PODCamera(cx, obj);
@@ -60871,7 +63003,7 @@ void register_all_cocos3dx(JSContext* cx, JSObject* obj) {
 	js_register_cocos3dx_CC3ActionAnimationBlendingSetTrackTo(cx, obj);
 	js_register_cocos3dx_CC3LineNode(cx, obj);
 	js_register_cocos3dx_CC3SimpleLineNode(cx, obj);
-	js_register_cocos3dx_CC3ActionManager(cx, obj);
+	js_register_cocos3dx_CC3ActionRotateToLookTowards(cx, obj);
 	js_register_cocos3dx_CC3SoftBodyNode(cx, obj);
 	js_register_cocos3dx_CC3RepeatForever(cx, obj);
 	js_register_cocos3dx_CC3ActionRotateOnAxisForever(cx, obj);
@@ -60884,12 +63016,15 @@ void register_all_cocos3dx(JSContext* cx, JSObject* obj) {
 	js_register_cocos3dx_CC3LightProbe(cx, obj);
 	js_register_cocos3dx_CC3ActionTransformBy(cx, obj);
 	js_register_cocos3dx_CC3ActionMoveBy(cx, obj);
+	js_register_cocos3dx_CC3ActionInstant(cx, obj);
 	js_register_cocos3dx_CC3Light(cx, obj);
-	js_register_cocos3dx_CC3PODMesh(cx, obj);
+	js_register_cocos3dx_CC3ActionToggleVisibility(cx, obj);
+	js_register_cocos3dx_CC3ActionDelayTime(cx, obj);
 	js_register_cocos3dx_CC3Bone(cx, obj);
 	js_register_cocos3dx_CC3ActionCCNodeSizeTo(cx, obj);
 	js_register_cocos3dx_CC3PODMeshNode(cx, obj);
 	js_register_cocos3dx_CC3ActionEnableAnimationTrack(cx, obj);
+	js_register_cocos3dx_CC3ActionCallFunc(cx, obj);
 	js_register_cocos3dx_CC3ActionRangeLimit(cx, obj);
 	js_register_cocos3dx_CC3ClipSpaceNode(cx, obj);
 	js_register_cocos3dx_CC3ResourceNode(cx, obj);
@@ -60914,6 +63049,7 @@ void register_all_cocos3dx(JSContext* cx, JSObject* obj) {
 	js_register_cocos3dx_CC3ActionAnimationBlendingFadeTrackTo(cx, obj);
 	js_register_cocos3dx_CC3ActionTintTo(cx, obj);
 	js_register_cocos3dx_CC3ActionTintEmissionTo(cx, obj);
+	js_register_cocos3dx_CC3PODMesh(cx, obj);
 	js_register_cocos3dx_CC3StencilledShadowPainterNode(cx, obj);
 	js_register_cocos3dx_CC3ActionDisableAnimationTrack(cx, obj);
 	js_register_cocos3dx_CC3Backdrop(cx, obj);
@@ -60933,13 +63069,16 @@ void register_all_cocos3dx(JSContext* cx, JSObject* obj) {
 	js_register_cocos3dx_CC3ActionRotateToAngle(cx, obj);
 	js_register_cocos3dx_CC3BoxNode(cx, obj);
 	js_register_cocos3dx_CC3VertexArray(cx, obj);
+	js_register_cocos3dx_CC3ActionHide(cx, obj);
 	js_register_cocos3dx_CC3Fog(cx, obj);
 	js_register_cocos3dx_CC3ActionScaleBy(cx, obj);
 	js_register_cocos3dx_CC3TouchBox(cx, obj);
-	js_register_cocos3dx_CC3ActionDelayTime(cx, obj);
+	js_register_cocos3dx_CC3ActionShow(cx, obj);
 	js_register_cocos3dx_CC3AffineMatrix(cx, obj);
 	js_register_cocos3dx_CC3TouchedNodePicker(cx, obj);
+	js_register_cocos3dx_CC3ProjectionMatrix(cx, obj);
 	js_register_cocos3dx_CC3ActionRotateBy(cx, obj);
+	js_register_cocos3dx_CC3ActionRemoveSelf(cx, obj);
 	js_register_cocos3dx_CC3Scene(cx, obj);
 }
 

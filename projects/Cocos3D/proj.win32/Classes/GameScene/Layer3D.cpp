@@ -46,7 +46,7 @@ void Scene3D::setupCameraAndLight()
 	// Create the camera, place it back a bit, and add it to the scene
 	cam = CC3Camera::nodeWithName( "Camera" );
 	//cam->setViewport(CC3ViewportMake(0,0,400,400));
-	cam->setLocation( cc3v( 0, 15, 15 ) );
+	cam->setLocation( cc3v( 0, 3, 15 ) );
 	cam->setTargetLocation(cc3v(0,0,0));
 
 	addChild( cam );
@@ -74,6 +74,7 @@ void Scene3D::setupAxes()
 	CC3Vector linedata[2] = {cc3v(0,0,0),cc3v(100,0,0)};
 	linex->populateAsLineStripWith(2,linedata,true);
 	linex->setColor(ccRED);
+
 
 	addChild(linex);
 
@@ -110,19 +111,45 @@ void Scene3D::initializeScene()
 
 void Scene3D::setupScene()
 {
-
+	CC3Node *node = CC3Node::nodeWithName("a");
+	addChild(node);
+	node->setLocation(cc3v(.3, 2, 0));
 	board = CC3PODResourceNode::nodeFromFile( "board.pod" );
-		addChild( board );
-		board->setLocation( cc3v( 0, 0, 0 ) );
+	board->setScale(cc3v(.3, .3, .3));
+		node->addChild( board );
+		board->setLocation( cc3v( 1.5, -.7, 2 ) );
+		board->setQuaternion(CC3Quaternion(.3, .3, .3, .3)); 
+		board->setVisible(false);
+
+
+		CC3ProjectionMatrix *matrix = CC3ProjectionMatrix::matrix();
+		matrix->populateFromRotation(cc3v(45,65,-2));
+		matrix->translateBy(cc3v(1,2.1,-2));
+
+		CC3Vector a = matrix->extractTranslation();
+		CC3PODResourceNode *board2 = CC3PODResourceNode::nodeFromFile("board.pod");
+		board2->setScale(cc3v(.3, .3, .3));
+		addChild(board2);
+
+
+		CC3AffineMatrix *test = CC3AffineMatrix::matrix();
+		test->translateBy(board->getLocation());
+		CC3Quaternion quat;
+		quat.fromRotation(board->getRotation());
+		test->rotateByQuaternion(quat);
+		test->scaleBy(board->getScale());
+
+		return;
+
 		//board->runAction(CC3RepeatForever::create(CC3RotateBy::actionWithDuration(10,cc3v(0,360,0))));
 
-		CC3PODResourceNode *meshNode = CC3PODResourceNode::nodeFromFile( "models/xe.pod");
-		meshNode->setLocation(cc3v(0,.5,-1));
-		addChild(meshNode);
-
-		meshNode = CC3PODResourceNode::nodeFromFile( "models/xe.pod");
-		meshNode->setLocation(cc3v(0,0,0));
-		addChild(meshNode);
+// 		CC3PODResourceNode *meshNode = CC3PODResourceNode::nodeFromFile( "models/xe.pod");
+// 		meshNode->setLocation(cc3v(0,.5,-1));
+// 		addChild(meshNode);
+// 
+// 		meshNode = CC3PODResourceNode::nodeFromFile( "models/xe.pod");
+// 		meshNode->setLocation(cc3v(0,0,0));
+// 		addChild(meshNode);
 	
 		//initWithGameLogic(new GameLogic());
 }

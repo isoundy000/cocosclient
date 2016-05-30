@@ -158,6 +158,16 @@
     <None Include="Build\HelloJS3DRes\jsb_opengl_constants.js" />
     <None Include="Build\HelloJS3DRes\jsb_sys.js" />
     <None Include="Build\HelloJS3DRes\src\Game\Scenes\GameScenes\PlayerView3D.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\common.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\mat2.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\mat2d.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\mat3.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\mat4.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\quat.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\vec2.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\vec3.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\vec4.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix.js" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

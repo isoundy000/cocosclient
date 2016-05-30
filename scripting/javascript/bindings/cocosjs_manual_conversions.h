@@ -25,9 +25,12 @@ jsval CGPoint_to_jsval( JSContext *cx, cpVect p );
 
 JSBool jsval_to_c3dvector3(JSContext *cx, jsval v, CC3Vector* ret);
 JSBool jsval_to_c3dvector4(JSContext *cx, jsval v, CC3Vector4* ret);
+JSBool jsval_to_c3dquaternion(JSContext *cx, jsval v, CC3Quaternion* ret);
 
 jsval c3dvector3_to_jsval(JSContext* cx, CC3Vector& v);
 jsval c3dvector4_to_jsval(JSContext* cx, CC3Vector4& v);
+jsval c3dquaternion_to_jsval(JSContext* cx, CC3Quaternion& v);
+
 
 #endif /* __COCOSJS_MANUAL_CONVERSIONS_H__ */
 

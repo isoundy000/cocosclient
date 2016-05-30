@@ -837,7 +837,6 @@ public:
 	virtual void				update(float t);
 	virtual CC3ActionInterval*	reverse(void);
 
-public:
 
 	/** helper constructor to create an array of sequenceable actions */
 	static CC3ActionSequence*	create(CC3ActionInterval *pAction1, ...);
@@ -1046,6 +1045,235 @@ protected:
 #define CC3DisableAnimationTrack			CC3ActionDisableAnimationTrack
 #define CC3Remove							CC3ActionRemove
 #define CC3CCSizeTo							CC3ActionCCNodeSizeTo
+
+
+
+// instant action 
+
+class  CC3ActionInstant : public CC3ActionInterval //<NSCopying>
+{
+public:
+    /**
+     *  @js ctor
+     */
+    CC3ActionInstant();
+    /**
+     *  @js NA
+     *  @lua NA
+     */
+    virtual ~CC3ActionInstant(){}
+    // CCAction methods
+    /**
+     *  @js NA
+     *  @lua NA
+     */
+    virtual CCObject* copyWithZone(CCZone *pZone);
+    virtual bool isDone(void);
+    virtual void step(float dt);
+    virtual void update(float time);
+    //CCFiniteTimeAction method
+    virtual CC3ActionInterval * reverse(void);
+};
+
+class CC3ActionShow : public CC3ActionInstant
+{
+public:
+    /**
+     *  @js ctor
+     *  @lua NA
+     */
+    CC3ActionShow(){}
+    /**
+     *  @js NA
+     *  @lua NA
+     */
+    virtual ~CC3ActionShow(){}
+    //super methods
+    virtual void update(float time);
+    virtual CC3ActionInterval * reverse(void);
+    /**
+     *  @js NA
+     *  @lua NA
+     */
+    virtual CCObject* copyWithZone(CCZone *pZone);
+public:
+
+    /** Allocates and initializes the action */
+    static CC3ActionShow * create();
+};
+
+
+
+/** 
+@brief Hide the node
+*/
+class CC3ActionHide : public CC3ActionInstant
+{
+public:
+    /**
+     *  @js ctor
+     *  @lua NA
+     */
+    CC3ActionHide(){}
+    /**
+     *  @js NA
+     *  @lua NA
+     */
+    virtual ~CC3ActionHide(){}
+    //super methods
+    /**
+     *  @lua NA
+     */
+    virtual void update(float time);
+    virtual CC3ActionInterval * reverse(void);
+    /**
+     *  @js NA
+     *  @lua NA
+     */
+    virtual CCObject* copyWithZone(CCZone *pZone);
+public:
+
+    /** Allocates and initializes the action */
+    static CC3ActionHide * create();
+};
+
+/** @brief Toggles the visibility of a node
+*/
+class CC3ActionToggleVisibility : public CC3ActionInstant
+{
+public:
+    /**
+     *  @js ctor
+     */
+    CC3ActionToggleVisibility(){}
+    /**
+     *  @js NA
+     *  @lua NA
+     */
+    virtual ~CC3ActionToggleVisibility(){}
+    //super method
+    virtual void update(float time);
+    /**
+     *  @js NA
+     *  @lua NA
+     */
+    virtual CCObject* copyWithZone(CCZone *pZone);
+public:
+
+    /** Allocates and initializes the action */
+    static CC3ActionToggleVisibility * create();
+};
+
+/** 
+ @brief Remove the node
+ @js NA
+ @lua NA
+ */
+class CC3ActionRemoveSelf : public CC3ActionInstant
+{
+public:
+	CC3ActionRemoveSelf(){}
+	virtual ~CC3ActionRemoveSelf(){}
+	//super methods
+	virtual void update(float time);
+	virtual CC3ActionInterval * reverse(void);
+	virtual CCObject* copyWithZone(CCZone *pZone);
+public:
+	/** create the action */
+	static CC3ActionRemoveSelf * create(bool isNeedCleanUp = true);
+	/** init the action */
+	bool init(bool isNeedCleanUp);
+protected:
+	bool m_bIsNeedCleanUp;
+};
+
+
+class CC3ActionCallFunc : public CC3ActionInstant //<NSCopying>
+{
+public:
+    /**
+     *  @js ctor
+     */
+    CC3ActionCallFunc()
+        : m_pSelectorTarget(NULL)
+		, m_nScriptHandler(0)
+        , m_pCallFunc(NULL)
+    {
+    }
+    /**
+     * @js NA
+     * @lua NA
+     */
+    virtual ~CC3ActionCallFunc();
+
+    /** creates the action with the callback 
+
+    * typedef void (CCObject::*SEL_CallFunc)();
+    * @lua NA
+    */
+    static CC3ActionCallFunc * create(CCObject* pSelectorTarget, SEL_CallFunc selector);
+
+	/** creates the action with the handler script function 
+     * @js NA
+     */
+	static CC3ActionCallFunc * create(int nHandler);
+
+	/** initializes the action with the callback 
+    
+    * typedef void (CCObject::*SEL_CallFunc)();
+    * @lua NA
+    */
+    virtual bool initWithTarget(CCObject* pSelectorTarget);
+    /** executes the callback 
+     * @lua NA
+     */
+    virtual void execute();
+    /** super methods
+     * @lua NA
+     */
+    virtual void update(float time);
+    /**
+     * @js  NA
+     * @lua NA
+     */
+    CCObject * copyWithZone(CCZone *pZone);
+    /**
+     * @lua NA
+     */
+    inline CCObject* getTargetCallback()
+    {
+        return m_pSelectorTarget;
+    }
+    /**
+     * @lua NA
+     */
+    inline void setTargetCallback(CCObject* pSel)
+    {
+        if (pSel != m_pSelectorTarget)
+        {
+            CC_SAFE_RETAIN(pSel);
+            CC_SAFE_RELEASE(m_pSelectorTarget);
+            m_pSelectorTarget = pSel; 
+        }
+    }
+    /**
+     * @lua NA
+     */
+    inline int getScriptHandler() { return m_nScriptHandler; };
+protected:
+    /** Target that will be called */
+    CCObject*   m_pSelectorTarget;
+
+	int m_nScriptHandler;
+
+    union
+    {
+        SEL_CallFunc    m_pCallFunc;
+        SEL_CallFuncN    m_pCallFuncN;
+        SEL_CallFuncND    m_pCallFuncND;
+        SEL_CallFuncO   m_pCallFuncO;
+    };
+};
 
 NS_COCOS3D_END
 

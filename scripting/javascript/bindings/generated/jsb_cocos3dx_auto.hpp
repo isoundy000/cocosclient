@@ -110,6 +110,46 @@ JSBool js_cocos3dx_CC3AffineMatrix_transformLocation(JSContext *cx, uint32_t arg
 JSBool js_cocos3dx_CC3AffineMatrix_matrix(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3AffineMatrix_CC3AffineMatrix(JSContext *cx, uint32_t argc, jsval *vp);
 
+extern JSClass  *jsb_CC3ProjectionMatrix_class;
+extern JSObject *jsb_CC3ProjectionMatrix_prototype;
+
+JSBool js_cocos3dx_CC3ProjectionMatrix_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_cocos3dx_CC3ProjectionMatrix_finalize(JSContext *cx, JSObject *obj);
+void js_register_cocos3dx_CC3ProjectionMatrix(JSContext *cx, JSObject *global);
+void register_all_cocos3dx(JSContext* cx, JSObject* obj);
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractQuaternion(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyIntoCC3Matrix4x4(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_populateFromCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyIntoCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractRotation(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyIntoCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_transformHomogeneousVector(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractRightDirection(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_orthonormalizeRotationStartingWith(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyByCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_populateCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_transformDirection(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyIntoCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractTranslation(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_populateCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_populateCC3Matrix4x4(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyIntoCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_invertRigid(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyIntoCC3Matrix4x4(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyByCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_populateFromCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyByCC3Matrix4x4(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_transpose(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractUpDirection(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_extractForwardDirection(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_multiplyByCC3Matrix3x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyByCC3Matrix4x4(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_leftMultiplyByCC3Matrix4x3(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_invertAdjoint(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_transformLocation(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_matrix(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ProjectionMatrix_CC3ProjectionMatrix(JSContext *cx, uint32_t argc, jsval *vp);
+
 extern JSClass  *jsb_CC3Cacheable_class;
 extern JSObject *jsb_CC3Cacheable_prototype;
 
@@ -618,6 +658,7 @@ JSBool js_cocos3dx_CC3Node_node(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3Node_setDirectionMarkerColor(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3Node_setDescriptorFontSize(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3Node_descriptorFontSize(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3Node_quaternionFromRatation(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3Node_nodeWithName(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3Node_getWireframeBoxColor(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3Node_nodeWithTag(JSContext *cx, uint32_t argc, jsval *vp);
@@ -723,6 +764,7 @@ JSBool js_cocos3dx_CC3Camera_openProjectionWithVisitor(JSContext *cx, uint32_t a
 JSBool js_cocos3dx_CC3Camera_ensureSceneUpdated(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3Camera_getEffectiveFieldOfView(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3Camera_getFrustum(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3Camera_unprojectPointForMy(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3Camera_nodeWithName(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3Camera_CC3Camera(JSContext *cx, uint32_t argc, jsval *vp);
 
@@ -2290,6 +2332,89 @@ JSBool js_cocos3dx_CC3ActionBezierTo_startWithTarget(JSContext *cx, uint32_t arg
 JSBool js_cocos3dx_CC3ActionBezierTo_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3ActionBezierTo_initWithDuration(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_cocos3dx_CC3ActionBezierTo_create(JSContext *cx, uint32_t argc, jsval *vp);
+
+extern JSClass  *jsb_CC3ActionInstant_class;
+extern JSObject *jsb_CC3ActionInstant_prototype;
+
+JSBool js_cocos3dx_CC3ActionInstant_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_cocos3dx_CC3ActionInstant_finalize(JSContext *cx, JSObject *obj);
+void js_register_cocos3dx_CC3ActionInstant(JSContext *cx, JSObject *global);
+void register_all_cocos3dx(JSContext* cx, JSObject* obj);
+JSBool js_cocos3dx_CC3ActionInstant_reverse(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionInstant_update(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionInstant_step(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionInstant_isDone(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionInstant_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionInstant_CC3ActionInstant(JSContext *cx, uint32_t argc, jsval *vp);
+
+extern JSClass  *jsb_CC3ActionShow_class;
+extern JSObject *jsb_CC3ActionShow_prototype;
+
+JSBool js_cocos3dx_CC3ActionShow_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_cocos3dx_CC3ActionShow_finalize(JSContext *cx, JSObject *obj);
+void js_register_cocos3dx_CC3ActionShow(JSContext *cx, JSObject *global);
+void register_all_cocos3dx(JSContext* cx, JSObject* obj);
+JSBool js_cocos3dx_CC3ActionShow_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionShow_reverse(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionShow_update(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionShow_create(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionShow_CC3ActionShow(JSContext *cx, uint32_t argc, jsval *vp);
+
+extern JSClass  *jsb_CC3ActionHide_class;
+extern JSObject *jsb_CC3ActionHide_prototype;
+
+JSBool js_cocos3dx_CC3ActionHide_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_cocos3dx_CC3ActionHide_finalize(JSContext *cx, JSObject *obj);
+void js_register_cocos3dx_CC3ActionHide(JSContext *cx, JSObject *global);
+void register_all_cocos3dx(JSContext* cx, JSObject* obj);
+JSBool js_cocos3dx_CC3ActionHide_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionHide_reverse(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionHide_update(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionHide_create(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionHide_CC3ActionHide(JSContext *cx, uint32_t argc, jsval *vp);
+
+extern JSClass  *jsb_CC3ActionToggleVisibility_class;
+extern JSObject *jsb_CC3ActionToggleVisibility_prototype;
+
+JSBool js_cocos3dx_CC3ActionToggleVisibility_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_cocos3dx_CC3ActionToggleVisibility_finalize(JSContext *cx, JSObject *obj);
+void js_register_cocos3dx_CC3ActionToggleVisibility(JSContext *cx, JSObject *global);
+void register_all_cocos3dx(JSContext* cx, JSObject* obj);
+JSBool js_cocos3dx_CC3ActionToggleVisibility_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionToggleVisibility_update(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionToggleVisibility_create(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionToggleVisibility_CC3ActionToggleVisibility(JSContext *cx, uint32_t argc, jsval *vp);
+
+extern JSClass  *jsb_CC3ActionRemoveSelf_class;
+extern JSObject *jsb_CC3ActionRemoveSelf_prototype;
+
+JSBool js_cocos3dx_CC3ActionRemoveSelf_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_cocos3dx_CC3ActionRemoveSelf_finalize(JSContext *cx, JSObject *obj);
+void js_register_cocos3dx_CC3ActionRemoveSelf(JSContext *cx, JSObject *global);
+void register_all_cocos3dx(JSContext* cx, JSObject* obj);
+JSBool js_cocos3dx_CC3ActionRemoveSelf_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionRemoveSelf_init(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionRemoveSelf_reverse(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionRemoveSelf_update(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionRemoveSelf_create(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionRemoveSelf_CC3ActionRemoveSelf(JSContext *cx, uint32_t argc, jsval *vp);
+
+extern JSClass  *jsb_CC3ActionCallFunc_class;
+extern JSObject *jsb_CC3ActionCallFunc_prototype;
+
+JSBool js_cocos3dx_CC3ActionCallFunc_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_cocos3dx_CC3ActionCallFunc_finalize(JSContext *cx, JSObject *obj);
+void js_register_cocos3dx_CC3ActionCallFunc(JSContext *cx, JSObject *global);
+void register_all_cocos3dx(JSContext* cx, JSObject* obj);
+JSBool js_cocos3dx_CC3ActionCallFunc_execute(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionCallFunc_copyWithZone(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionCallFunc_initWithTarget(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionCallFunc_update(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionCallFunc_getTargetCallback(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionCallFunc_getScriptHandler(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionCallFunc_setTargetCallback(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionCallFunc_create(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_cocos3dx_CC3ActionCallFunc_CC3ActionCallFunc(JSContext *cx, uint32_t argc, jsval *vp);
 
 extern JSClass  *jsb_CC3NodeAnimation_class;
 extern JSObject *jsb_CC3NodeAnimation_prototype;

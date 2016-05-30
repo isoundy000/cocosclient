@@ -126,6 +126,19 @@ jsval c3dvector4_to_jsval(JSContext* cx, CC3Vector4& v) {
 	return JSVAL_NULL;
 }
 
+jsval c3dquaternion_to_jsval(JSContext* cx, CC3Quaternion& v) {
+	JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+	if (!tmp) return JSVAL_NULL;
+	JSBool ok = JS_DefineProperty(cx, tmp, "x", DOUBLE_TO_JSVAL(v.x), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+		JS_DefineProperty(cx, tmp, "y", DOUBLE_TO_JSVAL(v.y), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+		JS_DefineProperty(cx, tmp, "z", DOUBLE_TO_JSVAL(v.z), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT) &&
+		JS_DefineProperty(cx, tmp, "w", DOUBLE_TO_JSVAL(v.w), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+	if (ok) {
+		return OBJECT_TO_JSVAL(tmp);
+	}
+	return JSVAL_NULL;
+}
+
 JSBool jsval_to_c3dvector3(JSContext *cx, jsval v, CC3Vector* ret) {
 	JSObject *tmp;
 	jsval jsx, jsy,jsz;
@@ -152,6 +165,33 @@ JSBool jsval_to_c3dvector4(JSContext *cx, jsval v, CC3Vector4* ret) {
 	JSObject *tmp;
 	jsval jsx, jsy,jsz,jsw;
 	double x, y,z,w;
+	JSBool ok = v.isObject() &&
+		JS_ValueToObject(cx, v, &tmp) &&
+		JS_GetProperty(cx, tmp, "x", &jsx) &&
+		JS_GetProperty(cx, tmp, "y", &jsy) &&
+		JS_GetProperty(cx, tmp, "z", &jsz) &&
+		JS_GetProperty(cx, tmp, "w", &jsw) &&
+
+		JS_ValueToNumber(cx, jsx, &x) &&
+		JS_ValueToNumber(cx, jsy, &y) &&
+		JS_ValueToNumber(cx, jsz, &z) &&
+		JS_ValueToNumber(cx, jsw, &w);
+
+
+	JSB_PRECONDITION3(ok, cx, JS_FALSE, "Error processing arguments");
+
+	ret->x = (float)x;
+	ret->y = (float)y;
+	ret->z = (float)z;
+	ret->w = (float)w;
+
+	return JS_TRUE;
+}
+
+JSBool jsval_to_c3dquaternion(JSContext *cx, jsval v, CC3Quaternion* ret) {
+	JSObject *tmp;
+	jsval jsx, jsy, jsz, jsw;
+	double x, y, z, w;
 	JSBool ok = v.isObject() &&
 		JS_ValueToObject(cx, v, &tmp) &&
 		JS_GetProperty(cx, tmp, "x", &jsx) &&

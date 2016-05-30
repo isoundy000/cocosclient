@@ -212,6 +212,16 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <None Include="..\..\..\Debug.win32\src\resource.js" />
     <None Include="Build\cocos2d-jsb.js" />
     <None Include="Build\HelloJS3DRes\cocos2d-jsb.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\common.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\mat2.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\mat2d.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\mat3.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\mat4.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\quat.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\vec2.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\vec3.js" />
+    <None Include="Build\HelloJS3DRes\gl-matrix\vec4.js" />
     <None Include="Build\HelloJS3DRes\jsb.js" />
     <None Include="Build\HelloJS3DRes\jsb_chipmunk.js" />
     <None Include="Build\HelloJS3DRes\jsb_chipmunk_constants.js" />
@@ -300,6 +310,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\..\external\libwebsockets\win32\lib\*.*" "$(OutD
     <ProjectReference Include="..\..\..\CocosDenshion\proj.win32\CocosDenshion.vcxproj">
       <Project>{f8edd7fa-9a51-4e80-baeb-860825d2eac6}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\external\libcocos3dx\proj.win32\libcocos3dx.vcxproj">
+      <Project>{a99ee05e-bf59-4646-a0df-b489e00ff5cd}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\scripting\javascript\bindings\proj.win32\libJSBinding.vcxproj">
       <Project>{39379840-825a-45a0-b363-c09ffef864bd}</Project>

@@ -625,6 +625,13 @@ public:
 
 	virtual bool				shouldUpdateToTarget();
 
+	static CC3Quaternion quaternionFromRatation(const CC3Vector& rotation)
+	{
+		CC3Quaternion quat;
+		quat = quat.fromRotation(rotation);
+		return quat;
+	}
+
 	/**
 	 * Indicates whether this node is tracking the location of a target node.
 	 *

@@ -839,6 +839,11 @@ CC3Vector4 CC3Camera::unprojectPoint( const CCPoint& cc2Point, const CC3Plane& p
 	return CC3RayIntersectionWithPlane( unprojectPoint( cc2Point ), plane );
 }
 
+CC3Vector4 CC3Camera::unprojectPointForMy( const CCPoint& cc2Point, const CC3Vector& planeNor, const CC3Vector& planePos )
+{
+	return unprojectPoint( cc2Point, CC3PlaneFromNormalAndLocation(planeNor,planePos));
+}
+
 CC3Camera* CC3Camera::nodeWithName( const std::string& name )
 {
 	CC3Camera* pCam = new CC3Camera;

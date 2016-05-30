@@ -1133,6 +1133,8 @@ public:
 	 */
 	CC3Vector4					unprojectPoint( const CCPoint& cc2Point, const CC3Plane& plane );
 
+	CC3Vector4					unprojectPointForMy( const CCPoint& cc2Point, const CC3Vector& planeNor, const CC3Vector& planePos );
+
 	/** Overridden to return NO so that the forwardDirection aligns with the negative-Z-axis. */
 	bool						shouldReverseForwardDirection();
 

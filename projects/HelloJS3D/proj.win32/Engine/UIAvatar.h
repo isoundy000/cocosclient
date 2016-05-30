@@ -25,6 +25,7 @@ public:
 
 	void asyncExecute();
 	void asyncExecuteWithUrl(string id,string url);
+
 protected:
 
 	virtual void initUI(string id,string path,string defaultImg);

@@ -546,6 +546,206 @@ CC3AffineMatrix : function () {},
 };
 
 /**
+ * @class CC3ProjectionMatrix
+ */
+cc3.CC3ProjectionMatrix = {
+
+/**
+ * @method extractQuaternion
+ * @return A value converted from C/C++ "CC3Quaternion"
+ */
+extractQuaternion : function () {},
+
+/**
+ * @method multiplyIntoCC3Matrix4x4
+ * @param {CC3Matrix4x4*}
+ */
+multiplyIntoCC3Matrix4x4 : function () {},
+
+/**
+ * @method populateFromCC3Matrix3x3
+ * @param {CC3Matrix3x3*}
+ */
+populateFromCC3Matrix3x3 : function () {},
+
+/**
+ * @method leftMultiplyIntoCC3Matrix3x3
+ * @param {CC3Matrix3x3*}
+ */
+leftMultiplyIntoCC3Matrix3x3 : function () {},
+
+/**
+ * @method extractRotation
+ * @return A value converted from C/C++ "cocos3d::CC3Vector"
+ */
+extractRotation : function () {},
+
+/**
+ * @method multiplyIntoCC3Matrix4x3
+ * @param {CC3Matrix4x3*}
+ */
+multiplyIntoCC3Matrix4x3 : function () {},
+
+/**
+ * @method transformHomogeneousVector
+ * @return A value converted from C/C++ "cocos3d::CC3Vector4"
+ * @param {cocos3d::CC3Vector4}
+ */
+transformHomogeneousVector : function () {},
+
+/**
+ * @method extractRightDirection
+ * @return A value converted from C/C++ "cocos3d::CC3Vector"
+ */
+extractRightDirection : function () {},
+
+/**
+ * @method orthonormalizeRotationStartingWith
+ * @param {unsigned int}
+ */
+orthonormalizeRotationStartingWith : function () {},
+
+/**
+ * @method leftMultiplyByCC3Matrix3x3
+ * @param {CC3Matrix3x3*}
+ */
+leftMultiplyByCC3Matrix3x3 : function () {},
+
+/**
+ * @method populateCC3Matrix3x3
+ * @param {CC3Matrix3x3*}
+ */
+populateCC3Matrix3x3 : function () {},
+
+/**
+ * @method transformDirection
+ * @return A value converted from C/C++ "cocos3d::CC3Vector"
+ * @param {cocos3d::CC3Vector}
+ */
+transformDirection : function () {},
+
+/**
+ * @method multiplyIntoCC3Matrix3x3
+ * @param {CC3Matrix3x3*}
+ */
+multiplyIntoCC3Matrix3x3 : function () {},
+
+/**
+ * @method extractTranslation
+ * @return A value converted from C/C++ "cocos3d::CC3Vector"
+ */
+extractTranslation : function () {},
+
+/**
+ * @method populateCC3Matrix4x3
+ * @param {CC3Matrix4x3*}
+ */
+populateCC3Matrix4x3 : function () {},
+
+/**
+ * @method populateCC3Matrix4x4
+ * @param {CC3Matrix4x4*}
+ */
+populateCC3Matrix4x4 : function () {},
+
+/**
+ * @method leftMultiplyIntoCC3Matrix4x3
+ * @param {CC3Matrix4x3*}
+ */
+leftMultiplyIntoCC3Matrix4x3 : function () {},
+
+/**
+ * @method invertRigid
+ */
+invertRigid : function () {},
+
+/**
+ * @method leftMultiplyIntoCC3Matrix4x4
+ * @param {CC3Matrix4x4*}
+ */
+leftMultiplyIntoCC3Matrix4x4 : function () {},
+
+/**
+ * @method multiplyByCC3Matrix4x3
+ * @param {CC3Matrix4x3*}
+ */
+multiplyByCC3Matrix4x3 : function () {},
+
+/**
+ * @method populateFromCC3Matrix4x3
+ * @param {CC3Matrix4x3*}
+ */
+populateFromCC3Matrix4x3 : function () {},
+
+/**
+ * @method multiplyByCC3Matrix4x4
+ * @param {CC3Matrix4x4*}
+ */
+multiplyByCC3Matrix4x4 : function () {},
+
+/**
+ * @method transpose
+ */
+transpose : function () {},
+
+/**
+ * @method extractUpDirection
+ * @return A value converted from C/C++ "cocos3d::CC3Vector"
+ */
+extractUpDirection : function () {},
+
+/**
+ * @method extractForwardDirection
+ * @return A value converted from C/C++ "cocos3d::CC3Vector"
+ */
+extractForwardDirection : function () {},
+
+/**
+ * @method multiplyByCC3Matrix3x3
+ * @param {CC3Matrix3x3*}
+ */
+multiplyByCC3Matrix3x3 : function () {},
+
+/**
+ * @method leftMultiplyByCC3Matrix4x4
+ * @param {CC3Matrix4x4*}
+ */
+leftMultiplyByCC3Matrix4x4 : function () {},
+
+/**
+ * @method leftMultiplyByCC3Matrix4x3
+ * @param {CC3Matrix4x3*}
+ */
+leftMultiplyByCC3Matrix4x3 : function () {},
+
+/**
+ * @method invertAdjoint
+ * @return A value converted from C/C++ "bool"
+ */
+invertAdjoint : function () {},
+
+/**
+ * @method transformLocation
+ * @return A value converted from C/C++ "cocos3d::CC3Vector"
+ * @param {cocos3d::CC3Vector}
+ */
+transformLocation : function () {},
+
+/**
+ * @method matrix
+ * @return A value converted from C/C++ "cocos3d::CC3ProjectionMatrix*"
+ */
+matrix : function () {},
+
+/**
+ * @method CC3ProjectionMatrix
+ * @constructor
+ */
+CC3ProjectionMatrix : function () {},
+
+};
+
+/**
  * @class CC3Cacheable
  */
 cc3.CC3Cacheable = {
@@ -3367,6 +3567,13 @@ setDescriptorFontSize : function () {},
 descriptorFontSize : function () {},
 
 /**
+ * @method quaternionFromRatation
+ * @return A value converted from C/C++ "CC3Quaternion"
+ * @param {cocos3d::CC3Vector}
+ */
+quaternionFromRatation : function () {},
+
+/**
  * @method nodeWithName
  * @return A value converted from C/C++ "cocos3d::CC3Node*"
  * @param {std::string}
@@ -3860,6 +4067,15 @@ getEffectiveFieldOfView : function () {},
  * @return A value converted from C/C++ "cocos3d::CC3Frustum*"
  */
 getFrustum : function () {},
+
+/**
+ * @method unprojectPointForMy
+ * @return A value converted from C/C++ "cocos3d::CC3Vector4"
+ * @param {cocos2d::CCPoint}
+ * @param {cocos3d::CC3Vector}
+ * @param {cocos3d::CC3Vector}
+ */
+unprojectPointForMy : function () {},
 
 /**
  * @method nodeWithName
@@ -10474,6 +10690,266 @@ initWithDuration : function () {},
  * @param {cocos3d::ccBezier3DConfig}
  */
 create : function () {},
+
+};
+
+/**
+ * @class CC3ActionInstant
+ */
+cc3.CC3ActionInstant = {
+
+/**
+ * @method reverse
+ * @return A value converted from C/C++ "cocos3d::CC3ActionInterval*"
+ */
+reverse : function () {},
+
+/**
+ * @method update
+ * @param {float}
+ */
+update : function () {},
+
+/**
+ * @method step
+ * @param {float}
+ */
+step : function () {},
+
+/**
+ * @method isDone
+ * @return A value converted from C/C++ "bool"
+ */
+isDone : function () {},
+
+/**
+ * @method copyWithZone
+ * @return A value converted from C/C++ "cocos2d::CCObject*"
+ * @param {cocos2d::CCZone*}
+ */
+copyWithZone : function () {},
+
+/**
+ * @method CC3ActionInstant
+ * @constructor
+ */
+CC3ActionInstant : function () {},
+
+};
+
+/**
+ * @class CC3ActionShow
+ */
+cc3.CC3ActionShow = {
+
+/**
+ * @method copyWithZone
+ * @return A value converted from C/C++ "cocos2d::CCObject*"
+ * @param {cocos2d::CCZone*}
+ */
+copyWithZone : function () {},
+
+/**
+ * @method reverse
+ * @return A value converted from C/C++ "cocos3d::CC3ActionInterval*"
+ */
+reverse : function () {},
+
+/**
+ * @method update
+ * @param {float}
+ */
+update : function () {},
+
+/**
+ * @method create
+ * @return A value converted from C/C++ "cocos3d::CC3ActionShow*"
+ */
+create : function () {},
+
+/**
+ * @method CC3ActionShow
+ * @constructor
+ */
+CC3ActionShow : function () {},
+
+};
+
+/**
+ * @class CC3ActionHide
+ */
+cc3.CC3ActionHide = {
+
+/**
+ * @method copyWithZone
+ * @return A value converted from C/C++ "cocos2d::CCObject*"
+ * @param {cocos2d::CCZone*}
+ */
+copyWithZone : function () {},
+
+/**
+ * @method reverse
+ * @return A value converted from C/C++ "cocos3d::CC3ActionInterval*"
+ */
+reverse : function () {},
+
+/**
+ * @method update
+ * @param {float}
+ */
+update : function () {},
+
+/**
+ * @method create
+ * @return A value converted from C/C++ "cocos3d::CC3ActionHide*"
+ */
+create : function () {},
+
+/**
+ * @method CC3ActionHide
+ * @constructor
+ */
+CC3ActionHide : function () {},
+
+};
+
+/**
+ * @class CC3ActionToggleVisibility
+ */
+cc3.CC3ActionToggleVisibility = {
+
+/**
+ * @method copyWithZone
+ * @return A value converted from C/C++ "cocos2d::CCObject*"
+ * @param {cocos2d::CCZone*}
+ */
+copyWithZone : function () {},
+
+/**
+ * @method update
+ * @param {float}
+ */
+update : function () {},
+
+/**
+ * @method create
+ * @return A value converted from C/C++ "cocos3d::CC3ActionToggleVisibility*"
+ */
+create : function () {},
+
+/**
+ * @method CC3ActionToggleVisibility
+ * @constructor
+ */
+CC3ActionToggleVisibility : function () {},
+
+};
+
+/**
+ * @class CC3ActionRemoveSelf
+ */
+cc3.CC3ActionRemoveSelf = {
+
+/**
+ * @method copyWithZone
+ * @return A value converted from C/C++ "cocos2d::CCObject*"
+ * @param {cocos2d::CCZone*}
+ */
+copyWithZone : function () {},
+
+/**
+ * @method init
+ * @return A value converted from C/C++ "bool"
+ * @param {bool}
+ */
+init : function () {},
+
+/**
+ * @method reverse
+ * @return A value converted from C/C++ "cocos3d::CC3ActionInterval*"
+ */
+reverse : function () {},
+
+/**
+ * @method update
+ * @param {float}
+ */
+update : function () {},
+
+/**
+ * @method create
+ * @return A value converted from C/C++ "cocos3d::CC3ActionRemoveSelf*"
+ */
+create : function () {},
+
+/**
+ * @method CC3ActionRemoveSelf
+ * @constructor
+ */
+CC3ActionRemoveSelf : function () {},
+
+};
+
+/**
+ * @class CC3ActionCallFunc
+ */
+cc3.CC3ActionCallFunc = {
+
+/**
+ * @method execute
+ */
+execute : function () {},
+
+/**
+ * @method copyWithZone
+ * @return A value converted from C/C++ "cocos2d::CCObject*"
+ * @param {cocos2d::CCZone*}
+ */
+copyWithZone : function () {},
+
+/**
+ * @method initWithTarget
+ * @return A value converted from C/C++ "bool"
+ * @param {cocos2d::CCObject*}
+ */
+initWithTarget : function () {},
+
+/**
+ * @method update
+ * @param {float}
+ */
+update : function () {},
+
+/**
+ * @method getTargetCallback
+ * @return A value converted from C/C++ "cocos2d::CCObject*"
+ */
+getTargetCallback : function () {},
+
+/**
+ * @method getScriptHandler
+ * @return A value converted from C/C++ "int"
+ */
+getScriptHandler : function () {},
+
+/**
+ * @method setTargetCallback
+ * @param {cocos2d::CCObject*}
+ */
+setTargetCallback : function () {},
+
+/**
+ * @method create
+ * @return A value converted from C/C++ "cocos3d::CC3ActionCallFunc*"
+ * @param {int}
+ */
+create : function () {},
+
+/**
+ * @method CC3ActionCallFunc
+ * @constructor
+ */
+CC3ActionCallFunc : function () {},
 
 };
 
